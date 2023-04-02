@@ -1,6 +1,5 @@
 import itertools
 import math
-import itertools 
 
 
 q = int(input("Digite o número de níveis de quantização:  "))
