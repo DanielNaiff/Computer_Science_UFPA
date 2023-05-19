@@ -1,5 +1,4 @@
-lista = []
-for i in range(0,-10,-1):
-  n = int(input('Digite um número: '))
-  lista.insert(i,n)
+lista = [0,0,0,0,0,0,0,0,0,0]
+for i in range(9,-1,-1):
+  lista[i] = int(input('Digite um número: '))
 print(lista)
