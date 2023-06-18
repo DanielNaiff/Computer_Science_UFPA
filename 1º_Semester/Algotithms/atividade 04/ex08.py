@@ -1,6 +1,8 @@
 from random import randint
+
 matriz = [[0 for c in range(10)]for l in range(10)]
 diagonal = [0]*10
+
 for l in range(10):
     for c in range(10):
         matriz[l][c] = randint(0,100)
