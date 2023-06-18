@@ -14,5 +14,5 @@ for l in range(5):
     for c in range(5):
         print(f"[{matriz[l][c]:^5}]",end='')
     print()
-print("\033[1;32mElementos da diagonal secundária:\033[m",diagonal)
-print("\033[1;32mSoma dos elementos:\033[m",soma)
+print("\033[1;35mElementos da diagonal secundária:\033[m",diagonal)
+print("\033[1;36mSoma dos elementos:\033[m",soma)

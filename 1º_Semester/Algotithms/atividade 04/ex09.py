@@ -18,7 +18,7 @@ for l in range(3):
         print(f"[{matriz[l][c]:^5}]",end='')
     print()
 
-print("\033[1;32mSua 2º matriz é a seguinte:\033[m")
+print("\033[1;35mSua 2º matriz é a seguinte:\033[m")
 
 for l in range(3):
     for c in range(3):
@@ -27,7 +27,7 @@ for l in range(3):
 
 matriz2= [[0 for i in range(3)] for i in range(3)]
 
-print("\033[1;32mA multiplicação delas é:\033[m")
+print("\033[1;36mA multiplicação delas é:\033[m")
 
 for l in range(3):
     for c in range(3):
