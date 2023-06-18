@@ -1,10 +1,11 @@
+from random import randint
 lista1 = []
 lista_par = []
 lista_impar = []
 menor = maior = 0
 
 for i in range(20):
-    lista1 += [int(input(f"\033[1;31mDigite o {i+1}º valor:\033[m"))]
+    lista1 += [randint(0,100)] #[int(input(f"\033[1;31mDigite o {i+1}º valor:\033[m"))]
     if lista1[i] % 2 == 0:
         lista_par += [lista1[i]]
     else:
