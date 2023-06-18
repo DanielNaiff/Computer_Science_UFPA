@@ -22,7 +22,6 @@ lista2 = [0]*n
 #os mesmos números das listas pares ou impares até a quantidade de números chegar a zero(loop while)
 # 
 # infelizmente não achei outro modo de resolver esse problema sem usar os métodos count(), remove() e o reverse()
-#fico me perguntando como seria resolver esse problema em alguma linguagem que não há esses métodos 
 while True:
     n = len(lista_par)
 
@@ -73,5 +72,5 @@ while True:
 lista3.reverse()
 print("\033c",end='')
 print("\033[1;32mVetor original:\033[m",lista1,"\n")
-print("\033[1;32mVetor par em ordem crescente:\033[m",lista2,"\n")
-print("\033[1;32mVetor impar em ordem decrescente:\033[m",lista3,"\n")
+print("\033[1;33mVetor par em ordem crescente:\033[m",lista2,"\n")
+print("\033[1;34mVetor impar em ordem decrescente:\033[m",lista3,"\n")
