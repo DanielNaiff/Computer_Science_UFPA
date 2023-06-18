@@ -5,7 +5,7 @@ lista_impar = []
 menor = maior = 0
 
 for i in range(20):
-    lista1 += [randint(0,100)] #[int(input(f"\033[1;31mDigite o {i+1}º valor:\033[m"))]
+    lista1 += [int(input(f"\033[1;31mDigite o {i+1}º valor:\033[m"))]#[randint(0,100)] 
     if lista1[i] % 2 == 0:
         lista_par += [lista1[i]]
     else:
@@ -46,7 +46,6 @@ while True:
         break
 
 n = len(lista_impar)
-maior = menor = 0
 
 lista3 = [0]*n
 
