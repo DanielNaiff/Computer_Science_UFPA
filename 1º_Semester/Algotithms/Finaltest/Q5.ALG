@@ -22,7 +22,7 @@ soma:inteiro
 
 Inicio
 // Seção de Comandos, procedimento, funções, operadores, etc...
-para i de 1 ate 2 faca
+para i de 1 ate 5 faca
 escreva("Digite o id do paciente",i,":")
 leia(vetora[i].id)
 escreva("Digite o nome do paciente",i,":")
@@ -89,7 +89,7 @@ se resposta = 4 entao
 para i de 1 ate 5 faca
 soma <- soma + vetora[i].idade
 fimpara
-media <- soma/2
+media <- soma/5
 escreval("A média é",media)
 escreval("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 fimse
