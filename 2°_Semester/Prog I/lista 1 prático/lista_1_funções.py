@@ -67,6 +67,15 @@ def questao_3_v1_menor_10(lista_string):
     return sorted(lista)
 
 def questao_3_v2_menor_10(lista_string):
+    """
+    Organiza uma lista de strings em palavras menores que 10 em ordem alfabética
+
+    Argumento:
+    uma lista de string
+
+    retorno:
+    uma lista de string
+    """
     return sorted([item
         for item in lista_string\
              if len(item) < 10])
