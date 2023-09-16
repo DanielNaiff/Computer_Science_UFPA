@@ -86,39 +86,39 @@ def formatar_nomes(lista,formatacao):
         return 'o segundo argumento é inválido'
     
 def calcular_tamanho_nomes(lista):
+    return [len(item) for item in lista]
     lista_tamanho_nomes=[]
     for item in lista:
         lista_tamanho_nomes.append(len(item))
     return lista_tamanho_nomes
 # exercicios aula 14/09/2023
-def transformar_real_inteiro(lista):
-    lista_inteiros = []
+#mapeamento
+def mapear_inteiro(item):
     import math as m
-    # controle de fluxo de repetição
-    for item in  lista:
-        x1 = str(item)
-        idx = x1.index('.')
-        x2 = x1[idx+1:]
-        x3 = int(x2)
-        # controle de fluxo de condição
-        if x3 % 2 == 0:
-            lista_inteiros.append(m.floor(item))
-        else:
-            lista_inteiros.append(m.ceil(item))
-    return lista_inteiros
+    x1 = str(item)
+    idx = x1.index('.')
+    x2 = x1[idx+1:]
+    x3 = int(x2)
+    # controle de fluxo de condição
+    if x3 % 2 == 0:
+        return m.floor(item)
+    else:
+        return m.ceil(item)
+
+def transformar_real_inteiro(lista):
+    return [mapear_inteiro(item) for item in lista]
+    
 #mapeamento
 def mapear_3_em_1(lista_1,lista_2,lista_3):
-    lista = []
-    for item in zip(lista_1,lista_2,lista_3):
-        lista.append(max(item)+min(item))
-    return lista
+    return [max(item) + min(item)\
+        for item in zip(lista_1,lista_2,lista_3)
+    ]
 #filtro
 def construir_lista_palindromo(lista):
-    lista_palindromo = []
-    for x,y in zip(lista, lista[::-1]):
-        if x == y:
-            lista_palindromo.append(x)
-    return lista_palindromo
+    # ordem de execução parte2, parte 3 e parte 1
+    return [x\
+             for x,y in zip(lista,lista[::-1])\
+                  if x == y]
 
 def encontrar_maior_string(lista):
     #valor = lista[0]
