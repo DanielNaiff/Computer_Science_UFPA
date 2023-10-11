@@ -80,3 +80,51 @@ def questao_3_v2_menor_10(lista_string):
         for item in lista_string\
              if len(item) < 10])
 #///////////////////////////////////////////////////////////////
+
+def questao_4_lista_homogenea(lista_heterogenea):
+    """
+    Organiza uma lista de strings em palavras menores que 10 em ordem alfabética
+
+    Argumento:
+    uma lista com varias listas
+
+    retorno:
+    uma lista de lista de inteiro
+    """
+    lista_homogenea = []
+    count = 0
+    for item in lista_heterogenea:
+        for i in item:
+            if type(i) == int:
+                count += 1
+        if count == len(item):
+            lista_homogenea.append(item)
+    return lista_homogenea
+
+def questao_5_v1_lista_de_string_com_correspondecia_a_uma_lista_de_inteiros(lista_de_string, lista_de_inteiros):
+    """
+    Organiza uma lista de string de acordo com o tamanho de cada elemento de uma outra lista de inteiros
+
+    Argumento:
+    uma lista de string e uma lista de inteiros
+
+    retorno:
+    uma lista de lista de string
+    """
+    lista_de_string_filtrada = []
+    for item in zip(lista_de_string,lista_de_inteiros):
+        if len(item[0]) <= item[1]:
+            lista_de_string_filtrada.append(item[0])
+    return lista_de_string_filtrada
+
+def questao_5_v2_lista_de_string_com_correspondecia_a_uma_lista_de_inteiros(lista_de_string, lista_de_inteiros):
+    """
+    Organiza uma lista de string de acordo com o tamanho de cada elemento de uma outra lista de inteiros
+
+    Argumento:
+    uma lista de string e uma lista de inteiros
+
+    retorno:
+    uma lista de lista de string
+    """
+    return [item[0] for item in zip(lista_de_string,lista_de_inteiros) if len(item[0]) <= item[1] ]
