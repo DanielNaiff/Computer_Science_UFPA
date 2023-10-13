@@ -167,3 +167,114 @@ o valor encontrado
     """
     lista_resultante = [numbers[0] + numbers[1] + numbers[2] for numbers in zip(lista_inteiros_1, lista_inteiros_2, lista_inteiros_3)]
     return min(lista_resultante)
+
+def questao_8_v1_encontrar_maior_string(lista):
+    """
+    Dada uma lista de string, faça uma redução para determinar o tamanho da
+    maior string. Retorne o valor encontrado e o índice correspondente na lista. Se mais de
+    uma string possuir o maior tamanho, retorne o menor índice.
+
+
+    Argumento:
+    Tres listas de string
+
+    retorno:
+    um numero inteiro e o indice
+    """
+    maior_tamanho = 0
+    menor_indice = float('inf')
+    indice_maior_string = None
+
+    for i, string in enumerate(lista):
+        tamanho_atual = len(string)
+        
+        if tamanho_atual > maior_tamanho:
+            maior_tamanho = tamanho_atual
+            menor_indice = i
+            indice_maior_string = i
+        elif tamanho_atual == maior_tamanho and i < menor_indice:
+            menor_indice = i
+            indice_maior_string = i
+
+    return maior_tamanho, indice_maior_string
+
+def questao_8_v2_encontrar_maior_string(lista):
+    """
+    Dada uma lista de string, faça uma redução para determinar o tamanho da
+    maior string. Retorne o valor encontrado e o índice correspondente na lista. Se mais de
+    uma string possuir o maior tamanho, retorne o menor índice.
+
+    Argumento:
+    Uma lista de string
+
+    retorno:
+    Um número inteiro e o índice
+    """
+    maior_tamanho = max(len(string) for string in lista)
+    indice_maior_string = min(i for i, string in enumerate(lista) if len(string) == maior_tamanho)
+
+    return maior_tamanho, indice_maior_string
+
+def questao_9_v1_somar_numeros_de_uma_lista(lista):
+    """
+    Dada uma lista de números reais, faça uma redução que implique na soma
+    dos elementos. O elemento da posição i só pode ser somado se ele for maior que o
+    elemento da posição i+1. Retorne o valor encontrado.
+
+    Argumento:
+    Uma lista de inteiros
+
+    retorno:
+    Um número inteiro
+    """
+    soma = 0
+    for numero in range(len(lista) - 1):
+        if lista[numero] > lista[numero + 1]:
+            soma += lista[numero]
+    return soma
+
+def questao_9_v2_somar_numeros_de_uma_lista(lista):
+    """
+    Dada uma lista de números reais, faça uma redução que implique na soma
+    dos elementos. O elemento da posição i só pode ser somado se ele for maior que o
+    elemento da posição i+1. Retorne o valor encontrado.
+
+    Argumento:
+    Uma lista de inteiros
+
+    retorno:
+    Um número inteiro
+    """
+    return sum([lista[numero] for numero in range(len(lista) - 1) if lista[numero] > lista[numero + 1]])
+
+def questao_10_v1_concatena_de_string(lista_strings):
+    """
+    Dada uma lista de string, faça uma redução que resulte em uma string
+    concatenando todos os elementos separados por vírgula e espaço em branco. Retorne
+    o valor encontrado.
+
+    Argumento:
+    Uma lista de string
+
+    retorno:
+    Uma string
+    """
+    palavra_concatenada = ''
+    for palavra in lista_strings:
+        palavra_concatenada += palavra.strip() + ", "
+    return palavra_concatenada
+
+def questao_10_v2_concatena_de_string(lista_strings):
+    """
+    Dada uma lista de string, faça uma redução que resulte em uma string
+    concatenando todos os elementos separados por vírgula e espaço em branco. Retorne
+    o valor encontrado.
+
+    Argumento:
+    Uma lista de string
+
+    retorno:
+    Uma string
+    """
+    return ', '.join([palavra.strip() for palavra in lista_strings ])
+

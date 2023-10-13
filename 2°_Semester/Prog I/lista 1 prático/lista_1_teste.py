@@ -1,13 +1,14 @@
 import lista_1_funções as f
 lista1_mesmo_tamanho_string = ['abc', 'def', 'ghj']
 lista2_mesmo_tamanho_string = ['gfd', 'rty', 'tre']
+print('\033[0;35m-=\033[m'*30)
 print('-=-=-Questao 1 Sem list comprehension-=-=-')
 print(f.questao1_v1_concatenar_strings(lista1_mesmo_tamanho_string,lista2_mesmo_tamanho_string))
 print()
 print('-=-=-Questao 1 Com list comprehension-=-=-')
 print(f.questao1_v2_concatenar_strings(lista1_mesmo_tamanho_string,lista2_mesmo_tamanho_string))
 print()
-print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+print('\033[0;35m-=\033[m'*30)
 
 lista_inteiros = [2, 56, 32, 7 , 89 , 4]
 #print('-=-=-Questao 2 Com list comprehension-=-=-')
@@ -22,7 +23,7 @@ print()
 print('-=-=-Questao 3 Com list comprehension-=-=-')
 print(f.questao_3_v2_menor_10(lista_desordenada))
 print()
-print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+print('\033[0;35m-=\033[m'*30)
 
 lista_heterogenea = ["dmsnfsdmf", [1,2,3,4,5]]
 print('-=-=-Questao 4 Sem list comprehension-=-=-')
@@ -31,7 +32,7 @@ print()
 print('-=-=-Questao 4 Com list comprehension-=-=-')
 print(f.questao_4_lista_homogenea(lista_heterogenea))
 print()
-print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+print('\033[0;35m-=\033[m'*30)
 
 lista_de_inteiros = [1,2,3]
 lista_de_string = ["s","sd","sdfgfd"]
@@ -41,15 +42,42 @@ print()
 print('-=-=-Questao 5 Com list comprehension-=-=-')
 print(f.questao_5_v2_lista_de_string_com_correspondecia_a_uma_lista_de_inteiros(lista_de_string, lista_de_inteiros))
 print()
-print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+print('\033[0;35m-=\033[m'*30)
 
 lista_inteiros_1= [1,2,3]
 lista_inteiros_2= [3,2,3]
 lista_inteiros_3= [3,2,5]
-print('-=-=-Questao 5 Sem list comprehension-=-=-')
+print('-=-=-Questao 7 Sem list comprehension-=-=-')
 print(f.questao_7_v1_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3))
 print()
-print('-=-=-Questao 5 Com list comprehension-=-=-')
+print('-=-=-Questao 7 Com list comprehension-=-=-')
 print(f.questao_7_v2_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3))
 print()
-print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+print('\033[0;35m-=\033[m'*30)
+
+lista = ["abc", "defg", "hij", "klmno", "pqr"]
+print('-=-=-Questao 8 Sem list comprehension-=-=-')
+print(f.questao_8_v1_encontrar_maior_string(lista))
+print()
+print('-=-=-Questao 8 Com list comprehension-=-=-')
+print(f.questao_8_v2_encontrar_maior_string(lista))
+print()
+print('\033[0;35m-=\033[m'*30)
+
+lista = [3, 1, 4, 1, 5, 9, 2, 6]
+print('-=-=-Questao 9 Sem list comprehension-=-=-')
+print(f.questao_9_v1_somar_numeros_de_uma_lista(lista))
+print()
+print('-=-=-Questao 9 Com list comprehension-=-=-')
+print(f.questao_9_v2_somar_numeros_de_uma_lista(lista))
+print()
+print('\033[0;35m-=\033[m'*30)
+
+lista_strings = ["Daniel Naiff","Texto","Abc"]
+print('-=-=-Questao 10 Sem list comprehension-=-=-')
+print(f.questao_10_v1_concatena_de_string(lista_strings))
+print()
+print('-=-=-Questao 10 Com list comprehension-=-=-')
+print(f.questao_10_v2_concatena_de_string(lista_strings))
+print()
+print('\033[0;35m-=\033[m'*30)
