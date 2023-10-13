@@ -128,3 +128,42 @@ def questao_5_v2_lista_de_string_com_correspondecia_a_uma_lista_de_inteiros(list
     uma lista de lista de string
     """
     return [item[0] for item in zip(lista_de_string,lista_de_inteiros) if len(item[0]) <= item[1] ]
+
+def questao_6_v1_lista_de_lista_de_string_com_proximo_numero_maior_que_o_inteiro(lista_de_lista_de_inteiro):
+    count_lista_1 = 0
+    count_lista_2 = 0
+    for item in lista_de_lista_de_inteiro:
+        for num in item:
+            count_lista_1 += num
+
+def questao_7_v1_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3):
+    """
+    Dada três lista de números inteiros, faça uma redução para encontrar o
+menor número resultante da soma dos elementos de índices correspondentes. Retorne
+o valor encontrado
+
+    Argumento:
+    Tres listas de inteiros
+
+    retorno:
+    um numero inteiro
+    """
+    lista_resultante = []
+    for numbers in zip(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3):
+        lista_resultante.append(numbers[0] + numbers[1] + numbers[2])
+    return min(lista_resultante)
+
+def questao_7_v2_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3):
+    """
+    Dada três lista de números inteiros, faça uma redução para encontrar o
+menor número resultante da soma dos elementos de índices correspondentes. Retorne
+o valor encontrado
+
+    Argumento:
+    Tres listas de inteiros
+
+    retorno:
+    um numero inteiro
+    """
+    lista_resultante = [numbers[0] + numbers[1] + numbers[2] for numbers in zip(lista_inteiros_1, lista_inteiros_2, lista_inteiros_3)]
+    return min(lista_resultante)

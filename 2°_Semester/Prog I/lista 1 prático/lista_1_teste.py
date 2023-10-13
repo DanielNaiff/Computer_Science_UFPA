@@ -42,3 +42,14 @@ print('-=-=-Questao 5 Com list comprehension-=-=-')
 print(f.questao_5_v2_lista_de_string_com_correspondecia_a_uma_lista_de_inteiros(lista_de_string, lista_de_inteiros))
 print()
 print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+
+lista_inteiros_1= [1,2,3]
+lista_inteiros_2= [3,2,3]
+lista_inteiros_3= [3,2,5]
+print('-=-=-Questao 5 Sem list comprehension-=-=-')
+print(f.questao_7_v1_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3))
+print()
+print('-=-=-Questao 5 Com list comprehension-=-=-')
+print(f.questao_7_v2_reducao_para_encontrar_a_menor_soma_resultante(lista_inteiros_1,lista_inteiros_2,lista_inteiros_3))
+print()
+print('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
