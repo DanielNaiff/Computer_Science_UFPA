@@ -276,5 +276,4 @@ def questao_10_v2_concatena_de_string(lista_strings):
     retorno:
     Uma string
     """
-    return ', '.join([palavra.strip() for palavra in lista_strings ])
-
+    return ', '.join([palavra.strip() for palavra in lista_strings])
