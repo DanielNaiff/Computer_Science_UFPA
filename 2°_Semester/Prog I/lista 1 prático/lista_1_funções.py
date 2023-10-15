@@ -626,5 +626,5 @@ def questao_14_v2_faixa_etaria(lista_nomes, lista_idades, faixa_etaria):
     return [ lista_nomes[i] for i in range(len(lista_nomes)) if faixa_etaria[0] <= lista_idades[i] <= faixa_etaria[1]]
 
 def questao_15_qtd_numero_par(lista):
-    lista_par = [numeros for numeros in lista if numeros % 2 == 0]
+    lista_par = set([numeros for numeros in lista if numeros % 2 == 0])
     return  lista_par, len(lista_par)
