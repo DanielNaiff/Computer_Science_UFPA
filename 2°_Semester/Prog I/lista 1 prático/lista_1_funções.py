@@ -277,3 +277,155 @@ def questao_10_v2_concatena_de_string(lista_strings):
     Uma string
     """
     return ', '.join([palavra.strip() for palavra in lista_strings])
+
+def questao_11_v1_retorna_indice_maior_primo(lista_inteiros):
+    indice_primo = 0
+    maior_primo = 0
+    for numero in range(len(lista_inteiros)):
+        if eh_primo(lista_inteiros[numero]):
+            if numero == 0:
+                maior_primo = numero
+            else:
+                if lista_inteiros[numero] > maior_primo:
+                    maior_primo = lista_inteiros[numero]
+                    indice_primo = numero
+        else:
+            indice_primo = -1
+    return indice_primo
+
+def questao_12_v1_desvio_padrao(lista_reais):
+    """
+    Dada uma lista de números reais, faça uma redução para calcular o desvio
+    padrão. Retorne o valor encontrado.
+
+    Argumento:
+    Uma lista de reais
+
+    retorno:
+    Um numero real
+    """
+    lista_desvio = []
+    soma_desvio = 0
+    media = sum(lista_reais)/len(lista_reais)
+    for numero in lista_reais:
+        lista_desvio.append(abs(numero - media))
+    for desvio in lista_desvio:
+        soma_desvio += desvio**2
+    variancia = soma_desvio/len(lista_reais)
+    return variancia**0.5
+
+def questao_13_v1_busca_linear_desordenada(lista_inteiros, numero_procurado):
+    """
+    Dada uma lista de números inteiros, e um número a ser buscado. Crie uma
+    função que faça uma busca linear do elemento e retorne quantas comparações foram
+    necessárias, bem como true ou false para informar se a busca foi realizada com sucesso
+    ou não.
+
+    Argumento:
+    Uma lista de inteiros, inteiro
+
+    retorno:
+    Um valor booleano e um numero inteiro
+    """
+    comparacoes = 0
+    for numero in lista_inteiros:
+        comparacoes += 1
+        if numero == numero_procurado:
+            return comparacoes, True
+        else:
+            if comparacoes == len(lista_inteiros):
+                return comparacoes, False
+
+def questao_14_v1_busca_linear_ordenada(lista_inteiros, numero_procurado):
+    """
+    Dada uma lista de números inteiros, e um número a ser buscado. Crie uma
+    função que faça uma busca linear do elemento e retorne quantas comparações foram
+    necessárias, bem como true ou false para informar se a busca foi realizada com sucesso
+    ou não.
+
+    Argumento:
+    Uma lista de inteiros, inteiro
+
+    retorno:
+    Um valor booleano e um numero inteiro
+    """
+    comparacoes = 0
+    lista_inteiros.sort()
+    for numero in lista_inteiros:
+        comparacoes += 1
+        if numero == numero_procurado:
+            return comparacoes, True
+        else:
+            if comparacoes == len(lista_inteiros):
+                return comparacoes, False
+
+def questao_15_v1_buscar_binaria_inteiros(lista_inteiros, numero_procurado):
+    lista_inteiros.sort()
+    comparacoes = 0
+    inicio = 0
+    fim = len(lista_inteiros) - 1
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+        comparacoes += 1
+
+        if lista_inteiros[meio] == numero_procurado:
+            return comparacoes, True
+        elif lista_inteiros[meio] < numero_procurado:
+            inicio = meio + 1
+        else:
+            fim = meio - 1
+
+    return comparacoes, False
+
+def questao_16_v1_buscar_binaria_inteiros(lista, alvo):
+    lista_ordenada = sorted(lista)
+    comparacoes = 0
+    frequencia = 0
+
+    inicio, fim = 0, len(lista_ordenada) - 1
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+        comparacoes += 1
+
+        if lista_ordenada[meio] == alvo:
+            frequencia += 1
+            esquerda, direita = meio - 1, meio + 1
+
+            while esquerda >= 0 and lista_ordenada[esquerda] == alvo:
+                frequencia += 1
+                esquerda -= 1
+
+            while direita < len(lista_ordenada) and lista_ordenada[direita] == alvo:
+                frequencia += 1
+                direita += 1
+
+            return comparacoes, frequencia
+        elif lista_ordenada[meio] < alvo:
+            inicio = meio + 1
+        else:
+            fim = meio - 1
+
+    return comparacoes, frequencia
+
+def questao_16_v2_buscar_binaria_inteiros(lista, alvo):
+    return lista.count(alvo)
+
+def questao_17_v1_dicionario(lista):
+    frequencia = {}
+    for n in range(1,21):
+        frequencia[n] = lista.count(n)
+    return frequencia
+
+def questao_17_v2_dicionario(lista):
+    frequencias = {}
+    
+    for elemento in lista:
+        if elemento in frequencias:
+            frequencias[elemento] += 1
+        else:
+            frequencias[elemento] = 1
+    
+    return frequencias
+

@@ -81,3 +81,72 @@ print('-=-=-Questao 10 Com list comprehension-=-=-')
 print(f.questao_10_v2_concatena_de_string(lista_strings))
 print()
 print('\033[0;31m-=\033[m'*30)
+
+lista_inteiros = [4, 7, 11, 15, 20, 23, 29]
+print('-=-=-Questao 11 Sem list comprehension-=-=-')
+print(f.questao_11_v1_retorna_indice_maior_primo(lista_inteiros))
+print()
+print('-=-=-Questao 11 Com list comprehension-=-=-')
+print(f.questao_11_v1_retorna_indice_maior_primo(lista_inteiros))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+lista_reais = [3,7,6,5,4]
+print('-=-=-Questao 12 Sem list comprehension-=-=-')
+print(f.questao_12_v1_desvio_padrao(lista_reais))
+print()
+print('-=-=-Questao 12 Com list comprehension-=-=-')
+print(f.questao_12_v1_desvio_padrao(lista_reais))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+lista_inteiros = [38, 56, 2, 5, 16, 23, 72, 8, 12, 45]
+numero_procurado = 23
+print('-=-=-Questao 13 Sem list comprehension-=-=-')
+print(f.questao_13_v1_busca_linear_desordenada(lista_inteiros, numero_procurado))
+print()
+print('-=-=-Questao 13 Com list comprehension-=-=-')
+print(f.questao_13_v1_busca_linear_desordenada(lista_inteiros, numero_procurado))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+lista_inteiros = [2, 5, 8, 12, 16, 23, 38, 45, 56, 72]
+numero_procurado = 23
+print('-=-=-Questao 14 Sem list comprehension-=-=-')
+print(f.questao_14_v1_busca_linear_ordenada(lista_inteiros, numero_procurado))
+print()
+print('-=-=-Questao 14 Com list comprehension-=-=-')
+print(f.questao_14_v1_busca_linear_ordenada(lista_inteiros, numero_procurado))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+lista_inteiros = [2, 5, 8, 12, 16, 23, 38, 45, 56, 72]
+numero_procurado = 23
+print('-=-=-Questao 15 Sem list comprehension-=-=-')
+print(f.questao_15_v1_buscar_binaria_inteiros(lista_inteiros, numero_procurado))
+print()
+print('-=-=-Questao 15 Com list comprehension-=-=-')
+print(f.questao_15_v1_buscar_binaria_inteiros(lista_inteiros, numero_procurado))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+import random
+lista = [random.randint(1, 100) for _ in range(1000)]
+alvo = 23
+print('-=-=-Questao 16 Sem list comprehension-=-=-')
+print(f.questao_16_v1_buscar_binaria_inteiros(lista, alvo))
+print()
+print('-=-=-Questao 16 Funcao Count-=-=-')
+print(f.questao_16_v2_buscar_binaria_inteiros(lista, alvo))
+print()
+print('\033[0;31m-=\033[m'*30)
+
+import random
+lista = [random.randint(1, 20) for _ in range(1000)]
+print('-=-=-Questao 17 Funcao Count-=-=-')
+print(f.questao_17_v1_dicionario(lista))
+print()
+print('-=-=-Questao 17 Sem Funcao Count-=-=-')
+print(f.questao_17_v2_dicionario(lista))
+print()
+print('\033[0;31m-=\033[m'*30)
