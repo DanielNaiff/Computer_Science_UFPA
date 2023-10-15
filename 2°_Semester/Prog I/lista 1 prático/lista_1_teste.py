@@ -209,3 +209,54 @@ print('-=-=-Questao 8 Sem list comprehension-=-=-')
 print(f.questao_8_v1_conta_conceito(lista))
 print()
 print('\033[0;32m-=\033[m'*30)
+
+lista = [0, 0 ,1, 3, 2, 4, 5, 6, 1, 2, 7]
+print('-=-=-Questao 9 Sem list comprehension-=-=-')
+print(f.questao_9_v1_nivel_de_vunerabilidade(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = ["Ramon", "Arnaldo", "Raquel", "Pedro", "Rafael"]
+print('-=-=-Questao 10 Sem list comprehension-=-=-')
+print(f.questao_10_v1_nomes_com_r(lista))
+print()
+print('-=-=-Questao 10 Com list comprehension-=-=-')
+print(f.questao_10_v2_nomes_com_r(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [5, 4, 3, 11, 1, 1, 8 ,10, 11, 3, 4, 2, 10]
+mes = 8
+print('-=-=-Questao 11 Com list comprehension-=-=-')
+print(f.questao_11_v2_verifica_validade(lista, mes))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_nomes = ["Ramon", "Arnaldo", "Raquel", "Pedro", "Rafael"]
+lista_saldo = [100, -500, -1, 1500, 90]
+print('-=-=-Questao 12 Com list comprehension-=-=-')
+print(f.questao_12_v2_saldo_positivo(lista_nomes,lista_saldo))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_nomes = ["AA", "AB", "BA", "BB", "CA", "AC"]
+lista_validade = [5, 4, 3, 11, 12, 1]
+validade = 8
+print('-=-=-Questao 13 Com list comprehension-=-=-')
+print(f.questao_13_v2_validade(lista_nomes, lista_validade, validade))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_nomes = ["Ramon", "Arnaldo", "Raquel", "Pedro", "Rafael"]
+lista_idades = [23, 45, 27, 60, 45]
+faixa_etaria = [20,30]
+print('-=-=-Questao 14 Com list comprehension-=-=-')
+print(f.questao_14_v2_faixa_etaria(lista_nomes, lista_idades, faixa_etaria))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [0, 0 ,1, 3, 2, 4, 5, 6, 1, 2, 7]
+print('-=-=-Questao 15 Com list comprehension-=-=-')
+print(f.questao_15_qtd_numero_par(lista))
+print()
+print('\033[0;32m-=\033[m'*30)

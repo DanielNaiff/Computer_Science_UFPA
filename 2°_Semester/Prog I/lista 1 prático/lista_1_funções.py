@@ -579,9 +579,52 @@ def questao_8_v1_conta_conceito(lista):
         "B": 0,
         "R": 0,
         "I": 0
-    }
+                        }
     for conceito in lista:
         if conceito in conceito_dicionario:
             conceito_dicionario[conceito] += 1
     return f"E = {conceito_dicionario['E']}",f"B = {conceito_dicionario['B']}",f"R = {conceito_dicionario['R']}",f"I = {conceito_dicionario['I']}"
 
+def questao_9_v1_nivel_de_vunerabilidade(lista):
+    dicionario = {
+        "Muito Seguro": 0,
+        "Seguro": 0,
+        "Quase seguro": 0,
+        "Inseguro": 0
+                }
+    for nivel in lista:
+        if nivel == 0:
+            dicionario["Muito Seguro"] += 1
+        elif 1 <= nivel <= 3:
+            dicionario["Seguro"] += 1
+        elif 4 <= nivel <= 5:
+            dicionario["Quase seguro"] += 1
+        else:
+            dicionario["Inseguro"] += 1
+    return f"Muito seguro: {dicionario['Muito Seguro']}",f"Seguro: {dicionario['Seguro']}",f"Quase seguro: {dicionario['Quase seguro']}",f"Inseguro: {dicionario['Inseguro']}",
+
+def questao_10_v1_nomes_com_r(lista):
+    lista_r = []
+    for nome in lista:
+        if nome[0] == "R":
+            lista_r.append(nome)
+    return lista_r
+
+def questao_10_v2_nomes_com_r(lista):
+    return [nome for nome in lista if nome.startswith("R")]
+
+def questao_11_v2_verifica_validade(lista, mes):
+    return [produto for produto in lista if produto >= mes]
+
+def questao_12_v2_saldo_positivo(lista_nomes,lista_saldo):
+    return [lista_nomes[i] for i in range(len(lista_nomes)) if lista_saldo[i] >= 0]
+
+def questao_13_v2_validade(lista_nomes, lista_validade, validade):
+    return [f"{lista_nomes[i]}: {lista_validade[i]}" for i in range(len(lista_nomes)) if lista_validade[i] >= validade]
+
+def questao_14_v2_faixa_etaria(lista_nomes, lista_idades, faixa_etaria):
+    return [ lista_nomes[i] for i in range(len(lista_nomes)) if faixa_etaria[0] <= lista_idades[i] <= faixa_etaria[1]]
+
+def questao_15_qtd_numero_par(lista):
+    lista_par = [numeros for numeros in lista if numeros % 2 == 0]
+    return  lista_par, len(lista_par)
