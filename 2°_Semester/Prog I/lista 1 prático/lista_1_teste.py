@@ -141,7 +141,6 @@ print(f.questao_16_v2_buscar_binaria_inteiros(lista, alvo))
 print()
 print('\033[0;31m-=\033[m'*30)
 
-import random
 lista = [random.randint(1, 20) for _ in range(1000)]
 print('-=-=-Questao 17 Funcao Count-=-=-')
 print(f.questao_17_v1_dicionario(lista))
