@@ -149,3 +149,63 @@ print('-=-=-Questao 17 Sem Funcao Count-=-=-')
 print(f.questao_17_v2_dicionario(lista))
 print()
 print('\033[0;31m-=\033[m'*30)
+
+#################################################################################################
+
+lista = [8,18,4,20,1,12]
+print('\033[0;32m-=\033[m'*30)
+print('-=-=-Questao 1 Sem list comprehension-=-=-')
+print(f.questao_1_v1_embalagens_fora_do_padrao(lista))
+print()
+print('-=-=-Questao 1 Com list comprehension-=-=-')
+print(f.questao_1_v2_embalagens_fora_do_padrao(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [3.5, 6, 7.5, 8, 9, 9, 5, 10, 7.5, 8 ]
+media = 7
+print('-=-=-Questao 2 Sem list comprehensiont-=-=-')
+print(f.questao_2_v1_media_aprovados(lista, media))
+print()
+print('-=-=-Questao 2 Com list comprehension-=-=-')
+print(f.questao_2_v2_media_aprovados(lista, media))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [1.7, 1.88, 1.5, 1.32, 1.68, 1.59]
+print('-=-=-Questao 3 Sem list comprehension-=-=-')
+print(f.questao_3_v1_maior_altura(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [3, 5, 4, 6, 3, 2, 8, 10 ]
+print('-=-=-Questao 4 Sem list comprehension-=-=-')
+print(f.questao_4_v1_media_numeros_pares(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = ["TACG", "GAGC", "ATUC", "TAGC", "GAGC"  ]
+base_alvo = "GAGC"
+print('-=-=-Questao 5 Sem list comprehension-=-=-')
+print(f.questao_5_v1_frequencia_de_bases_nitrogenadas(lista, base_alvo))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [2, 3, 4, 7, 1, 2, 30, 13, 25, 1, 3]
+velocidade = 20
+print('-=-=-Questao 6 Sem list comprehension-=-=-')
+print(f.questao_6_v1_sprint_backlog(lista,velocidade))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = [3, 2, 5, 4, 8, 6, 7, 10, 12, 13, 11]
+print('-=-=-Questao 7 Sem list comprehension-=-=-')
+print(f.questao_7_v1_ordem_chegada(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista = ["E", "E", "B", "B", "R", "E", "B", "R", "I", "I", "R", "R", "I"]
+print('-=-=-Questao 8 Sem list comprehension-=-=-')
+print(f.questao_8_v1_conta_conceito(lista))
+print()
+print('\033[0;32m-=\033[m'*30)

@@ -429,3 +429,159 @@ def questao_17_v2_dicionario(lista):
     
     return frequencias
 
+####################################################################################################
+
+def questao_1_v1_embalagens_fora_do_padrao(lista):
+    """
+    Samarone trabalha em uma empresa chamada Sociedade Brasileira dos
+    Caramelos (SBC). Recentemente, devido ao elevado desperdício de
+    embalagens, Samarone foi designado para inspecionar as embalagens dos
+    caramelos produzidas pela SBC. Samarone recebe diariamente lotes de
+    embalagens e deve verificar quantas embalagens estão fora dos padrões
+    estipulados pela SBC. Para facilitar a vida do Samarone, você foi contratado
+    para desenvolver um programa de computador que, dada uma lista de
+    embalagens, informe quantas estão fora dos padrões estipulados pela SBC.
+    Cada item da lista possui um número não negativo que diz respeito ao tamanho
+    da embalagem em centímetros. Sabe-se que as embalagens menores que sete
+    centímetros não são aceitas pela SBC.
+
+
+    Argumento:
+    Uma lista de inteiros
+
+    retorno:
+    um numero inteiro
+    """
+    fora_do_padrao = 0
+    for embalagem in lista:
+        if embalagem < 7:
+            fora_do_padrao += 1
+    return fora_do_padrao
+
+def questao_1_v2_embalagens_fora_do_padrao(lista):
+    """
+    Samarone trabalha em uma empresa chamada Sociedade Brasileira dos
+    Caramelos (SBC). Recentemente, devido ao elevado desperdício de
+    embalagens, Samarone foi designado para inspecionar as embalagens dos
+    caramelos produzidas pela SBC. Samarone recebe diariamente lotes de
+    embalagens e deve verificar quantas embalagens estão fora dos padrões
+    estipulados pela SBC. Para facilitar a vida do Samarone, você foi contratado
+    para desenvolver um programa de computador que, dada uma lista de
+    embalagens, informe quantas estão fora dos padrões estipulados pela SBC.
+    Cada item da lista possui um número não negativo que diz respeito ao tamanho
+    da embalagem em centímetros. Sabe-se que as embalagens menores que sete
+    centímetros não são aceitas pela SBC.
+
+
+    Argumento:
+    Uma lista de inteiros
+
+    retorno:
+    um numero inteiro
+    """
+    return len([embalagem for embalagem in lista if embalagem < 7])
+
+def questao_2_v1_media_aprovados(lista, media):
+    """
+    Renato é professor de uma escola chamada Saber Brincar Compartilhar
+    (SBC). No final do ano passado, Renato aplicou um teste de nivelamento para
+    todos os alunos da escola. Por serem muitos, Renato está com dificuldade em
+    saber quantos alunos ficaram acima da média. Como você é amigo do Renato,
+    ele pediu a sua ajuda para escrever um programa de computador que, dada
+    uma lista com a nota dos alunos e o valor da média escolar da SBC, informe
+    quantos alunos obtiveram a nota superior a média calculada.
+
+
+
+    Argumento:
+    Uma lista de inteiros , um numero inteiro
+
+    retorno:
+    um numero inteiro
+    """
+    aprovados = 0
+    for nota in lista:
+        if nota > media:
+            aprovados += 1 
+    return aprovados
+
+def questao_2_v2_media_aprovados(lista, media):
+    """
+    Renato é professor de uma escola chamada Saber Brincar Compartilhar
+    (SBC). No final do ano passado, Renato aplicou um teste de nivelamento para
+    todos os alunos da escola. Por serem muitos, Renato está com dificuldade em
+    saber quantos alunos ficaram acima da média. Como você é amigo do Renato,
+    ele pediu a sua ajuda para escrever um programa de computador que, dada
+    uma lista com a nota dos alunos e o valor da média escolar da SBC, informe
+    quantos alunos obtiveram a nota superior a média calculada.
+
+
+
+    Argumento:
+    Uma lista de inteiros , um numero inteiro
+
+    retorno:
+    um numero inteiro
+    """
+    return len([ nota for nota in lista if nota > media])
+
+def questao_3_v1_maior_altura(lista):
+    """
+    Marcelle é a nova professora de educação física na escola chamada Saber
+    Brincar Compartilhar (SBC). Marcelle recebeu a ficha de cadastro de todos os
+    seus alunos e está curiosa para saber a altura do aluno mais alto da turma.
+    Como são muitos alunos, Marcelle pediu a sua ajuda para escrever um
+    programa de computador que, dada a lista da altura dos alunos da professora
+    Marcelle, informe qual a maior altura.
+
+
+    Argumento:
+    Uma lista de reais
+
+    retorno:
+    um numero real
+    """
+    return max(lista)
+
+def questao_4_v1_media_numeros_pares(lista):
+    lista_pares = []
+    for numero in lista:
+        if numero % 2 == 0:
+            lista_pares.append(numero)
+    return sum(lista_pares)/len(lista_pares)
+
+def questao_5_v1_frequencia_de_bases_nitrogenadas(lista, base_alvo):
+    frequencia = 0
+    for base in lista:
+        if base == base_alvo:
+            frequencia += 1
+    return frequencia
+
+def questao_6_v1_sprint_backlog(lista,velocidade):
+    complexidade  = 0
+    numero_itens = 0
+    for item in lista:
+        complexidade += item
+        numero_itens += 1
+        if complexidade >= velocidade:
+            return numero_itens - 1
+
+def questao_7_v1_ordem_chegada(lista):
+    count = 0
+    for i  in range(len(lista)):
+        if i + 1 == lista[i]:
+            count += 1
+    return count
+
+def questao_8_v1_conta_conceito(lista):
+    conceito_dicionario = {
+        "E": 0,
+        "B": 0,
+        "R": 0,
+        "I": 0
+    }
+    for conceito in lista:
+        if conceito in conceito_dicionario:
+            conceito_dicionario[conceito] += 1
+    return f"E = {conceito_dicionario['E']}",f"B = {conceito_dicionario['B']}",f"R = {conceito_dicionario['R']}",f"I = {conceito_dicionario['I']}"
+
