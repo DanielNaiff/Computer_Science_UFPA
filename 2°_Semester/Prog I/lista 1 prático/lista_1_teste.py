@@ -257,6 +257,32 @@ print('\033[0;32m-=\033[m'*30)
 
 lista = [0, 0 ,1, 3, 2, 4, 5, 6, 1, 2, 7]
 print('-=-=-Questao 15 Com list comprehension-=-=-')
-print(f.questao_15_qtd_numero_par(lista))
+print(f.questao_15_v2_qtd_numero_par(lista))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_nomes = ["Amanda", "Amaral", "Arnaldo", "Bruno"]
+palavra = "Ama"
+print('-=-=-Questao 16 Com list comprehension-=-=-')
+print(f.quetao_16_v2_buscar(lista_nomes, palavra))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_inteiros = [2, 4, 6, 8, 11, 12, 14 ]
+print('-=-=-Questao 17 Sem list comprehension-=-=-')
+print(f.questao_17_v1_eh_pa(lista_inteiros))
+print()
+print('-=-=-Questao 17 Com list comprehension-=-=-')
+print(f.questao_17_v2_eh_pa(lista_inteiros))
+print()
+print('\033[0;32m-=\033[m'*30)
+
+lista_1 = [0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0]
+lista_2 = [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0]
+print('-=-=-Questao 18 Sem list comprehension-=-=-')
+print(f.questao_18_v1_distancia_hamming(lista_1, lista_2))
+print()
+print('-=-=-Questao 18 Com list comprehension-=-=-')
+print(f.questao_18_v2_distancia_hamming(lista_1, lista_2))
 print()
 print('\033[0;32m-=\033[m'*30)

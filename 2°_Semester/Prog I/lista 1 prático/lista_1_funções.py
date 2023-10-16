@@ -625,6 +625,33 @@ def questao_13_v2_validade(lista_nomes, lista_validade, validade):
 def questao_14_v2_faixa_etaria(lista_nomes, lista_idades, faixa_etaria):
     return [ lista_nomes[i] for i in range(len(lista_nomes)) if faixa_etaria[0] <= lista_idades[i] <= faixa_etaria[1]]
 
-def questao_15_qtd_numero_par(lista):
+def questao_15_v2_qtd_numero_par(lista):
     lista_par = set([numeros for numeros in lista if numeros % 2 == 0])
     return  lista_par, len(lista_par)
+
+def quetao_16_v2_buscar(lista_nomes, palavra):
+    return [nome for nome in lista_nomes if palavra in nome]
+
+def questao_17_v1_eh_pa(lista_inteiros):
+    dif = lista_inteiros[1] - lista_inteiros[0]  
+
+    for i in range(1, len(lista_inteiros)-1):
+        if lista_inteiros[i+1] - lista_inteiros[i] != dif:
+            return "NAO"
+    
+    return "SIM"
+
+def questao_17_v2_eh_pa(lista_inteiros):
+    if all([lista_inteiros[i+1] - lista_inteiros[i] == lista_inteiros[1] - lista_inteiros[0] for i in range(0, len(lista_inteiros) - 1)]):
+        return "SIM"
+    return "NAO"
+
+def questao_18_v1_distancia_hamming(lista_1, lista_2):
+    distancia = 0
+    for n1, n2 in zip(lista_1,lista_2):
+        if n1 != n2:
+            distancia += 1
+    return distancia
+
+def questao_18_v2_distancia_hamming(lista_1, lista_2):    
+    return sum(n1 != n2 for n1, n2 in zip(lista_1, lista_2))
