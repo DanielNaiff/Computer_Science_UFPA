@@ -1,86 +1,38 @@
+def validar_cpf(cpf):
+    if not cpf.isdigit() or len(cpf) < 11:
+        raise Exception("CPF inválido. Digite novamente.")
+
+def validar_rg(rg):
+    if not rg.isdigit() or len(rg) < 7:
+        raise Exception("RG inválido. Digite novamente.")
+
+def obter_entrada(mensagem, validacao):
+    while True:
+        entrada = input(mensagem)
+        try:
+            validacao(entrada)
+            return entrada
+        except Exception as e:
+            print(e)
+
 def cadastro_nome():
-  while True:
-    try:
-      nome = input("Digite o seu nome:")
-
-      if nome.isdigit():
-        raise Exception("Nome inválido. Tente novamente")
-      
-    except Exception as e:
-      print(e)
-
-    else:
-      return nome
-      
+    return obter_entrada("Digite o seu nome:", lambda x: not x.isdigit())
 
 def cadastro_nascimento():
-  while True:
-    try:
-      nascimento = input("Digite o seu nascimento(xxxx):")
-
-      if not nascimento.isdigit():
-        raise Exception("Ano inválido. Tente novamente")
-      elif int(nascimento) < 1903:
-        raise Exception("Digite apenas número. Tente novamente")
-      
-    except Exception as e:
-      print(e)
-
-    else:
-      return nascimento
+    return obter_entrada("Digite o seu nascimento (xxxx):", lambda x: x.isdigit() and int(x) >= 1903)
 
 def cadastro_sexo():
-  while True:
-    try:
-      sexo = input("Digite o seu sexo(M/F):")
-
-      if sexo not in ["F", "M", 'f', 'm']:
-        raise Exception("Digite um sexo válido")
-      
-    except Exception as e:
-      print(e)
-
-    else:
-      return sexo.upper()
+    return obter_entrada("Digite o seu sexo (M/F):", lambda x: x.upper() in ["M", "F"])
 
 def cadastro_cpf():
-  while True:
-    try:
-      cpf = input("Digite o seu cpf:")
-
-      if not cpf.isdigit():
-        raise Exception("Digite um cpf válido. Digite novamente")
-
-      elif len(cpf) < 11:
-        raise Exception("CPF muito curto. Digite novamente")
-      
-    except Exception as e:
-      print(e)
-
-    else:
-      return cpf
+    return obter_entrada("Digite o seu CPF:", validar_cpf)
 
 def cadastro_rg():
-  while True:
-    try:
-      rg = input("Digite o seu Rg:")
-
-      if not rg.isdigit():
-        raise Exception("Digite um Rg válido. Digite novamente")
-
-      elif len(rg) < 7:
-        raise Exception("Rg muito curto. Digite novamente")
-      
-    except Exception as e:
-      print(e)
-
-    else:
-      return rg
+    return obter_entrada("Digite o seu RG:", validar_rg)
 
 def listar_dicionario(lista):
-  for dicionario in lista:
-    print(f"-=-Dicionario-=-")
-    for chave, valor in dicionario.items():
-      print(f"{chave}:{valor}")
-      print("-=-=-=-=-=-=-=-=-=-=-=")
-  return
+    for dicionario in lista:
+        print("-=- Dicionário -=-")
+        for chave, valor in dicionario.items():
+            print(f"{chave}: {valor}")
+        print("-=-=-=-=-=-=-=-=-")
