@@ -51,3 +51,11 @@ def cadastro_rg():
     mensagem = "Digite o seu RG: "
     mensagem_erro = "RG inválido. Deve conter apenas números e ter no mínimo 7 dígitos."
     return obter_entrada(mensagem, validar_rg, mensagem_erro)
+
+def listar_dicionario(lista):
+  for dicionario in lista:
+    print(f"-=-Dicionario-=-")
+    for chave, valor in dicionario.items():
+      print(f"{chave}:{valor}")
+      print("-=-=-=-=-=-=-=-=-=-=-=")
+  return
