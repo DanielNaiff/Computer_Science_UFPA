@@ -1,5 +1,3 @@
-dic = {}
-
 def cadastro_nome():
   while True:
     try:
