@@ -1,3 +1,5 @@
+import desafio_funcoes as f
+
 dic = {
   "nome": "",
   "nascimento": "",
@@ -6,7 +8,6 @@ dic = {
   "Rg": ""
 }
 lista_dicionarios = []
-import desafio_funcoes as f
 
 while True:
     print("1 para cadastrar os dados 2 para mostrar os dicionario ou aperte qualquer tecla para finalizar")
