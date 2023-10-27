@@ -18,7 +18,7 @@ while True:
         dic["sexo"] = f.cadastro_sexo()
         dic["CPF"] = f.cadastro_cpf()
         dic["Rg"] = f.cadastro_rg()
-        lista_dicionarios.append(dic.copy())  # Copia o dicionário para evitar referência direta
+        lista_dicionarios.append(dic.copy())  
 
     elif opc == "2":
         try:
