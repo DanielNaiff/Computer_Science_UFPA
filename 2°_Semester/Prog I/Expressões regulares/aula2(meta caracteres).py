@@ -1,3 +1,8 @@
+# Meta caracteres: . ^ $ * + ? { } [ ] \ | ( )
+# | OU
+# . Qualquer caractere (com exceção da quebra de linha)
+# [] conjunto de caracteres
+
 import re
 
 texto = '''
@@ -12,3 +17,9 @@ pão de queijo.
 Não canso de ouvir a Maria:
 "Joooooooooãooooooo, o café tá prontinho aqui. Veeemm"!
 '''
+
+print(re.findall(r'João|Maria|ad.ltos', texto))
+print(re.findall(r'[Jj]oão|[Mm]aria', texto))
+print(re.findall(r'[a-z]aria', texto))
+print(re.findall(r'[a-zA-Z]aria', texto))
+print(re.findall(r'jOão|mAriA', texto, flags = re.I))
