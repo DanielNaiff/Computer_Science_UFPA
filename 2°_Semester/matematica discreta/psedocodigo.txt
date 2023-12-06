@@ -1,0 +1,15 @@
+Função busca_binaria_iterativa(lista, elemento):
+    início = 0
+    fim = tamanho da lista - 1
+    
+    Enquanto início <= fim:
+        meio = (início + fim) div 2
+        
+        Se lista[meio] é igual ao elemento:
+            Retorne meio
+        Senão, se lista[meio] < elemento:
+            início = meio + 1
+        Senão:
+            fim = meio - 1
+    
+    Retorne -1
