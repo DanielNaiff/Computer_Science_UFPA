@@ -61,13 +61,13 @@ def view():
                                 ))
                                 ],alignment=ft.MainAxisAlignment.CENTER)#Container,
                                 ]),
-                            ft.TextField(ref=components['tf_nome'], label="Nome", autofocus=True),
-                            ft.TextField(ref=components['tf_cpf'], label="CPF"),
-                            ft.TextField(ref=components['tf_rg'], label="RG"),
-                            ft.TextField(ref=components['tf_telefone'], label="Telefone"),
-                            ft.TextField(ref=components['tf_endereço'], label="Endereço"),
-                            ft.TextField(ref=components['tf_nascimento'], label="Nascimento"),
-                            ft.TextField(ref=components['tf_e-mail'], label="E-mail"),
+                            ft.TextField(ref=components['tf_nome'], label="Nome", autofocus=True,prefix_icon=ft.icons.PERSON, helper_text="Apenas letras"),
+                            ft.TextField(ref=components['tf_cpf'], label="CPF", prefix_icon=ft.icons.DOCUMENT_SCANNER, helper_text="xxx.xxx.xxx-xx"),
+                            ft.TextField(ref=components['tf_rg'], label="RG", prefix_icon=ft.icons.DOCUMENT_SCANNER, helper_text="xxxxxxx"),
+                            ft.TextField(ref=components['tf_telefone'], label="Telefone", prefix_icon=ft.icons.PHONE, helper_text="(xx) xxxxx-xxxx"),
+                            ft.TextField(ref=components['tf_endereço'], label="Endereço",prefix_icon=ft.icons.HOME),
+                            ft.TextField(ref=components['tf_nascimento'], label="Nascimento",prefix_icon=ft.icons.STAR, helper_text="DD/MM/AAAA"),
+                            ft.TextField(ref=components['tf_e-mail'], label="E-mail",prefix_icon=ft.icons.EMAIL,helper_text="name@example.com ou name@example.com.br"),
                             ft.Row(
                                 [
                                     ft.Container(
@@ -146,21 +146,22 @@ def validar_nome(nome):
     return bool(nome_pattern.match(nome))
 
 def validar_telefone(telefone):
-    # Verifica se o telefone possui exatamente 11 dígitos
-    telefone_pattern = re.compile(r'^\d{11}$')
+    # Verifica se o telefone possui o formato (xx)xxxxx-xxxx ou (xx) xxxxx-xxxx
+    telefone_pattern = re.compile(r'^\(\d{2}\) ?\d{5}-\d{4}$')
     return bool(telefone_pattern.match(telefone))
 
 def validar_cpf(cpf):
-    # Verifica se o CPF possui 11 dígitos e é composto apenas por números
-    return len(cpf) == 11 and cpf.isdigit()
+    # Verifica se o CPF possui o formato 111.111.111-11
+    cpf_pattern = re.compile(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$')
+    return bool(cpf_pattern.match(cpf))
 
 def validar_rg(rg):
     # Verifica se o RG possui exatamente 9 dígitos
-    rg_pattern = re.compile(r'^\d{9}$')
+    rg_pattern = re.compile(r'^\d{7}$')
     return bool(rg_pattern.match(rg))
 
 def validar_email(email):
-    email_pattern = re.compile(r'^\S+@\S+\.\S+$')
+    email_pattern = re.compile(r'^\S+@\S+\.(com|com\.br)$')
     return bool(email_pattern.match(email))
 
 def validar_nascimento(data):
@@ -183,25 +184,25 @@ def error_message(data):
         elif data == 'telefone':
             # Validação do telefone
             if not validar_telefone(components['tf_telefone'].current.value) and components['tf_telefone'].current.value:
-                raise ValueError("o telefone deve possuir apenas 11 digitos")
+                raise ValueError("O telefonde deve ser no formato: (xx) xxxxx-xxxx")
             elif not components['tf_telefone'].current.value:
                 raise ValueError("Por favor preencha o telefone.")
         elif data == 'cpf':
             # Validação do CPF
             if not validar_cpf(components['tf_cpf'].current.value) and components['tf_cpf'].current.value:
-                raise ValueError("O CPF deve possuir 11 dígitos e ser composto apenas por números")
+                raise ValueError("O CPF deve ser no formato: xxx.xxx.xxx-xx")
             elif not components['tf_cpf'].current.value:
                 raise ValueError("Por favor preencha o seu CPF.")
         elif data == 'rg':
             # Validação do RG
             if not validar_rg(components['tf_rg'].current.value) and components['tf_rg'].current.value:
-                raise ValueError("RG inválido(O RG possui deve exatamente 9 dígitos)")
+                raise ValueError("RG inválido(O RG possui deve exatamente 7 dígitos e não conter letras)")
             elif not components['tf_rg'].current.value:
                 raise ValueError("Por favor preencha o seu RG.")
         elif data == 'email':
             # Validação do E-mail
             if not validar_email(components['tf_e-mail'].current.value) and components['tf_e-mail'].current.value:
-                raise ValueError("E-mail inválido(formato: name@example.com)")
+                raise ValueError("E-mail inválido(formato correto: name@example.com ou name@example.com.br)")
             elif not components['tf_e-mail'].current.value:
                 raise ValueError("Por favor preencha o seu email.")
         elif data == 'nascimento':
