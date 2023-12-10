@@ -1,5 +1,4 @@
 from flet import *
-import control as c
 import time
 from math import pi
 
@@ -22,27 +21,11 @@ class AnimatedBox(UserControl):
     
 
 def main(page: Page):        
-    c.init(page)
     page.title = "Sistema "           
-    page.on_route_change = route_change  
     page.horizontal_alignment = 'center'
     page.vertical_alignment = 'center'
     page.bgcolor = '#1f262f'
 
-    def init(p):
-        global page, telas, cadastros        
-        page = p
-        cadastros = []    
-        telas = {
-            '0': main.viewTela1()
-        }
-
-    def route_change(route):
-        page.views.clear()    
-        page.views.append(
-            telas[page.route]
-        )          
-        page.update()
     def animate_boxes():
         clock_wise_rotate = pi/4
         counter_clock_wise_rotate = -pi * 2
@@ -81,8 +64,7 @@ def main(page: Page):
 
             if counter > 10:
                 counter = 0
-    def navigate_to_escolherArquivo(e):
-        page.go('0')
+
     page.add(
         Card(
             width=400,
@@ -117,7 +99,7 @@ def main(page: Page):
                                         color= 'white',
                                         bgcolor= "#7df6dd",
                                     ),
-                                    on_click=navigate_to_escolherArquivo
+                                    on_click=None
                                 ),
                             ),
                             ]
