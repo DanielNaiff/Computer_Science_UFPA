@@ -185,25 +185,27 @@ def main(page: Page):
                     extracted_data_qtd['Telefones'] = []
 
                 if lista.content.value != '':
-                    termos = lista.content.value.split()
-                    lista_palavras = re.findall(r'\w+', content)
-
+                    termos = lista.content.value.lower().split()  # Converter para minúsculas e dividir os termos
+                    lista_palavras = re.findall(r'[\wÀ-ú]+', content.lower())  # Converter para minúsculas
+                
                     all_ocorrencias = []  # Lista para armazenar todas as ocorrências
-
+                
                     for termo in termos:
-                        termo_sem_pontuacao = termo.strip(string.punctuation)
-                        ocorrencias = [palavra for palavra in lista_palavras if palavra.strip(string.punctuation) == termo_sem_pontuacao]
+                        termo_sem_pontuacao = termo.strip(string.punctuation).lower()  # Converter para minúsculas e remover pontuações
+                        # Buscar por correspondências parciais (se o termo inserido estiver contido na palavra do conteúdo)
+                        ocorrencias = [palavra for palavra in lista_palavras if termo_sem_pontuacao in palavra]
                         all_ocorrencias.extend(ocorrencias)  # Adicionando as ocorrências à lista geral
-
+                
                     print(f"Todas as ocorrências: {all_ocorrencias}")
                     extracted_data['Referencias'] = all_ocorrencias
                     extracted_data_qtd['Referencias'] = [len(all_ocorrencias)]
-
+                
                     lista.content.value = ''
-
+                
                 else:
                     extracted_data['Referencias'] = []
                     extracted_data_qtd['Referencias'] = []
+
         max_length = max(len(value) for value in extracted_data.values())
 
         for key in extracted_data.keys():
