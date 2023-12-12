@@ -1,0 +1,34 @@
+Olá, meu nome é João Silva. Meu email é joaosilva@email.com e meu telefone é 1234-5678. 
+Outro contato é Maria Souza, cujo email é mariasouza@email.com.t e telefone é 98765-4321.
+CPF João: 123.456.789-10. CPF Maria: 987.654.321-00.
+
+
+Olá! Meu nome é João da Silva. Meu CPF é 123.456.789-10. Meu email é joao.silva@email.com. Você pode me contatar pelo telefone (12)3456-7890. Gosto de carro, moto e também de bicicleta. Sempre fui fã de carros vermelhos. Meu amigo Paulo Roberto também adora motos. Seu CPF é 987.654.321-00 e seu email é pauloroberto@email.com. O telefone dele é (98)76543-2109. 
+
+Mariana Oliveira gosta de carros antigos. O CPF dela é 654.321.987-00 e o email é mariana.oliveira@email.com . O telefone para contato é (87) 65432-1098. Ela quer comprar uma moto amarela. Fica a dica! André Almeida é outro amigo que curte carros e motos. O CPF dele é 567.890.123-45 e o email é andrealmeida@email.com. O telefone é (45)67890-1234.
+
+Carla Santos adora motos esportivas. O CPF dela é 234.567.890-12 e o email é carla.santos@email.com= O telefone para contato é (23)45678-9012. Ela gosta de dirigir carros potentes também. Preciso consertar meu carro, ele está fazendo um barulho estranho. Gosto de assistir a corridas de moto. E você, gosta de carros ou motos?
+
+teste1@email.com
+exemplo@teste.com.br
+email_exemplo123@email.com
+contato@email.com
+email_teste@teste.com
+
+(12)3456-7890
+(98)76543-2109
+(87)65432-1098
+(45)67890-1234
+(23)45678-9012
+
+Daniel ,(11) 11111-1111,111.111.111-11,1111111
+Lucas,(22) 22222-2222,222.222.222-22,2222222,
+Thiago,(66) 66666-6666,666.666.666-64,6666664
+
+Olá! Meu nome é João da Silva. Meu CPF é 123.456.789-10. Meu email é joao.silva@email.com. Você pode me contatar pelo telefone (12)3456-7890. Gosto de carro, moto e também de bicicleta.
+
+Outro exemplo é Maria Oliveira. Seu CPF é 987.654.321-00 e seu email é maria.oliveira@email.com. O telefone dela é (98)76543-2109. Ela gosta de dançar, viajar e assistir filmes.
+
+Além disso, temos Carlos Santos. Seu CPF é 234.567.890-12 e seu email é carlos.santos@email.com. O telefone para contato é (23)45678-9012. Ele gosta de cozinhar e praticar esportes.
+
+Último exemplo, André Almeida. Seu CPF é 567.890.123-45 e seu email é andre.almeida@email.com. O telefone é (45)67890-1234. Ele adora ler, tocar violão e pintar.
