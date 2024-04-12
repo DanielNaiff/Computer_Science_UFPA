@@ -9,11 +9,6 @@ int main() {
   printf("Quanto processos voce quer criar? ");
   scanf("%d", &numeroProcessos);
 
-  if (numeroProcessos <= 0) {
-    printf("\nO numero deve ser positivo\n");
-    return 1;
-  }
-
   for (int i = 0; i < numeroProcessos - 1; i++) {
     pid_t pid;
     pid = fork();
@@ -21,9 +16,7 @@ int main() {
     if (pid < 0) {
       printf("Fork falhou.\n");
       return 1;
-    }
-      
-    else if (pid == 0) {    
+    } else if (pid == 0) {    
       execl("./helloWorld", "./helloWorld", NULL); 
       printf("failed.\n");
       return 0;
