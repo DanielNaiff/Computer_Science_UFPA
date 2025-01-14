@@ -1,0 +1,55 @@
+/*Questão 1*/
+homem(ivo).
+homem(gil).
+homem(rai).
+homem(ary).
+homem(noe).
+
+mulher(ana).
+mulher(bia).
+mulher(eva).
+mulher(clo).
+mulher(lia).
+mulher(gal).
+
+/*Questão 2*/
+pai(ivo,eva).
+pai(rai,noe).
+pai(gil,rai).
+pai(gil,clo).
+pai(gil,ary).
+pai(ary,gal).
+
+mae(ana,eva).
+mae(eva,noe).
+mae(bia,rai).
+mae(bia,clo).
+mae(bia,ary).
+mae(lia,gal).
+
+/*Questão 3*/
+gerou(X,Y) :- pai(X,Y); mae(X,Y).
+
+/*Questao 4*/
+irmao(X,Y) :- gerou(Z,X), gerou(Z,Y), X \= Y, homem(X).
+
+/*Questao 5*/
+irma(X,Y) :- gerou(Z,X), gerou(Z,Y), X \= Y, mulher(X).
+
+/*Questao 6*/
+tio(X,Y) :- irmao(X,Z), (pai(Z,Y);mae(Z,Y)), X \= Y.
+
+/*Questao 7*/
+tia(X,Y) :- irma(X,Z), (pai(Z,Y);mae(Z,Y)), X \= Y.
+
+/*Questao 8*/
+avo(X,Y) :- (pai(Z,Y); mae(Z,Y)), pai(X,Z), X \= Y.
+
+/*Questao 9*/
+avó(X,Y) :- (pai(Z,Y); mae(Z,Y)), mae(X,Z), X \= Y.
+
+/*Questao 10*/
+ehcasal(X,Y) :- (pai(X,Z),mae(Y,Z);pai(Y,Z),mae(X,Z)), X \= Y.
+
+/*Questao 11*/
+efeliz(X) :- ehcasal(X,Z), X \= Z.
