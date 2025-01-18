@@ -1,0 +1,31 @@
+cadastro('Ana', fem, 23, 1.55, 56.0).
+cadastro('Bia', fem, 19, 1.71, 61.3).
+cadastro('Ivo', masc, 22, 1.80, 70.5).
+cadastro('Lia', fem, 17, 1.85, 57.3).
+cadastro('Eva', fem, 28, 1.75, 68.7).
+cadastro('Ary', masc, 25, 1.72, 68.9).
+
+%a) Quais são as mulheres com mais de 20 anos de idade?
+%cadastro(M,fem,I,_,_), I > 20
+
+%b) Quem tem pelo menos 1.70m de altura e menos de 65kg?
+%cadastro(M,_,_,A,P), A >= 1.70, P < 65 
+
+%c) Quais são os possíveis casais onde o homem é mais alto que a mulher?
+%cadastro(H,masc,_,A,_), cadastro(M,fem,_,Af,_), A > Af
+
+% Predicado para calcular o peso ideal
+peso_ideal(Altura, PesoIdeal) :-
+    PesoIdeal is 62.1 * Altura - 44.7.
+
+% Predicado para verificar se uma mulher pode ser modelo
+pode_ser_modelo(Nome) :-
+    cadastro(Nome, fem, Idade, Altura, Peso),
+    Altura > 1.70,               % Altura maior que 1.70m
+    Idade < 25,                  % Idade menor que 25 anos
+    peso_ideal(Altura, PesoIdeal),
+    Peso =< PesoIdeal.           % Peso menor ou igual ao peso ideal
+
+% Consulta para obter os nomes das mulheres que podem ser modelos
+modelos(Nome) :-
+    pode_ser_modelo(Nome).
