@@ -26,5 +26,10 @@ def f(x):
 def df(x):
     return 2*(x**2) - 2
 
+def f2(x):
+    return (x**3) - (x*3) - 1
+def df2(x):
+    return (3*(x**2)) - 3 
+
 newton_Raphson(f, df,1.5, 1e-3,100000 )
 

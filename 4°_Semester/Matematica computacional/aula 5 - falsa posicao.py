@@ -35,7 +35,9 @@ def f2(x):
 def f3(x):
     if x <= 0: 
         return float('inf')
-    return x * math.log10(x) - 1  
+    return x * math.log10(x) - 1
+def f4(x):
+    return (x**3) - (x*3) - 1
 
 print("Raiz da função f1(x) = x^3 - 9x + 3")
 print(posicao_falsa(f1, 2, 3 , e))
@@ -45,3 +47,6 @@ print(posicao_falsa(f2, 0.1, 2 , e))
 print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("Raiz da função f3(x) = x*log(x) - 1")
 print(posicao_falsa(f3, 1, 3 , e))
+print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("Raiz da função f4(x) = x^3 - x*3 - 1")
+print(posicao_falsa(f4, -1, 0 , e))
