@@ -34,9 +34,9 @@ def fatoracao_LU(A):
 
 # Exemplo de uso
 A = [
-    [2, 3, 1],
-    [4, 6, 2],
-    [6, 8, 3]
+    [2, 3, -1],
+    [4, 4, -3],
+    [2, -3, 1]
 ]
 
 L, U = fatoracao_LU(A)
