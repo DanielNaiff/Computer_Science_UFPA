@@ -43,8 +43,8 @@ def testar_valor_x(coeficientes, x_val):
     return avaliar_polinomio(coeficientes, x_val)
 
 # Pontos de exemplo para interpolação
-# pontos = [ (0,-2.78), (0.5,-2.241), (1,-1.65), (1.5, -0.594), (2,1.34), (2.5,4.564)]
-pontos = [(-1, 4), (0, 1), (2, -1)]
+pontos = [ (0.5,-2.241), (1,-1.65), (1.5, -0.594)]
+# pontos = [(-1, 4), (0, 1), (2, -1)]
 
 # Resolvendo o sistema linear
 coeficientes = interpolacao_linear(pontos)

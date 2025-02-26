@@ -31,6 +31,9 @@ class MinimosQuadrados:
     def predicao(self, x_val):
         return sum(c * f(x_val) for c, f in zip(self.coeficientes, self.funcoes_base))
 
+    def constante_ajustada(self):
+        return self.coeficientes[0]  # O coeficiente da função constante é o primeiro da lista
+
     def plotar(self):
         x_fit = np.linspace(min(self.x), max(self.x), 100)
         y_fit = self.predicao(x_fit)
@@ -58,4 +61,6 @@ modelo.plotar()
 # Exemplo de predição
 novo_x = 10
 pred_y = modelo.predicao(novo_x)
+constante = modelo.constante_ajustada()
 print(f'Para x = {novo_x}, a predição de y é {pred_y}')
+print(f'A constante ajustada é {constante}')

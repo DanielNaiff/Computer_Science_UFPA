@@ -11,11 +11,11 @@ def regra_trapezios(f, a, b, n):
 
 # Exemplo de uso
 def f(x):
-    return x**2
+    return 1 / np.sqrt(x)
 
 # Definição do intervalo e número de subdivisões
-a, b = 0, 2
-subdivisoes = [2, 4, 8, 16, 32]
+a, b = 2, 14
+subdivisoes = [4,6]
 
 # Cálculo e exibição dos resultados
 for n in subdivisoes:

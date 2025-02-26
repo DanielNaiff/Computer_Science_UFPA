@@ -8,6 +8,9 @@ x_dados = np.linspace(0, 20, tam_dados)  # Valores de X entre 0 e 20
 aleatorio = np.random.uniform(-5, 5, size=tam_dados)  # Ruído aleatório
 y_dados = np.exp(x_dados) + aleatorio  # Aplicando a função com ruído
 
+# Garantir que y_dados seja positivo
+y_dados = np.maximum(y_dados, 1e-5)  # Evitar logaritmo de zero ou números negativos
+
 # Transformação logarítmica para ajuste linear
 log_y = np.log(y_dados)
 
