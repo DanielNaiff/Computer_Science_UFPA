@@ -6,7 +6,7 @@ np.random.seed(42)  # Para reprodutibilidade
 tam_dados = 20  # Número de pontos
 x_dados = np.linspace(0, 20, tam_dados)  # Valores de X entre 0 e 20
 aleatorio = np.random.uniform(-5, 5, size=tam_dados)  # Ruído aleatório
-y_dados = np.exp(x_dados) + aleatorio  # Aplicando a função com ruído
+y_dados = np.exp(x_dados) + aleatorio  # Aplicando a função com ruído  # f(x) = e^x + a
 
 # Garantir que y_dados seja positivo
 y_dados = np.maximum(y_dados, 1e-5)  # Evitar logaritmo de zero ou números negativos
