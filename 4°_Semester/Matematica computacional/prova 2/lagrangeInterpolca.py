@@ -55,8 +55,12 @@ def exibir_polinomio(polinomio):
     
     return " + ".join(termos)
 
+# Função para testar o valor de x no polinômio de Lagrange
+def testar_polinomio(pontos, x_val):
+    return lagrange_interpolation(pontos, x_val)
+
 # Pontos de exemplo para interpolação
-pontos = [(-1, 4), (0, 1), (2, -1)]
+pontos = [(0,-2.78), (0.5,-2.241), (1,-1.65), (1.5, -0.594), (2,1.34), (2.5,4.564)]
 
 # Calculando o polinômio de Lagrange expandido
 polinomio = formatar_polinomio_expandido(pontos)
@@ -78,3 +82,8 @@ plt.xlabel("x")
 plt.ylabel("y")
 plt.grid(True)
 plt.show()
+
+# Testando o polinômio para um valor de x
+x_teste = 1.23  # Por exemplo, testando x = 2
+resultado = testar_polinomio(pontos, x_teste)
+print(f"Valor do polinômio em x = {x_teste}: {resultado:.4f}")

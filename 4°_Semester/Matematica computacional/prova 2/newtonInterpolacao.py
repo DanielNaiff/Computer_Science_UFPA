@@ -32,11 +32,16 @@ def exibir_tabela(x, tabela):
     for i in range(len(tabela)):
         print(f"{x[i]}\t" + "\t".join([f"{tabela[i, j]:.4f}" for j in range(len(tabela))]))
 
-# Exemplo de dados
-x = np.array([-1, 0, 1, 2, 3])
-y = np.array([ 1, 1, 0,-1,-2])
-# x = np.array([-1, 0, 2])
-# y = np.array([4, 1, -1])
+# Função para testar um valor no polinômio de Newton
+def testar_polinomio(polinomio, x_teste):
+    return polinomio(x_teste)
+
+# Exemplo de dados no formato (x, y)
+pontos = [(-1, 4), (0, 1), (2, -1)]
+
+# Separando os pontos em arrays x e y
+x = np.array([p[0] for p in pontos])
+y = np.array([p[1] for p in pontos])
 
 # Calculando as diferenças divididas
 tabela = diferencas_divididas(x, y)
@@ -69,3 +74,9 @@ plt.title('Interpolação de Newton')
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# Solicitando ao usuário um valor de x para testar no polinômio
+x_teste = 1.23
+y_teste = testar_polinomio(polinomio, x_teste)
+
+print(f"O valor de y correspondente a x = {x_teste} é: {y_teste:.4f}")

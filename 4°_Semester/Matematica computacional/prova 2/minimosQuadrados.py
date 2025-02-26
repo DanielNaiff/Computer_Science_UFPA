@@ -63,19 +63,43 @@ def plot_ajuste(x, y, funcao_final):
 # --- Código principal ---
 if __name__ == "__main__":
     # 🔹 Passo 1: Definir os dados de entrada
-    x_exemplo = np.array([-1, -0.75, -0.6, -0.5, 0.3, 0, 0.2, 0.4,  0.5, 0.7, 1])  # Substituir pelos pontos reais
-    y_exemplo = np.array([2.05, 1.153, 0.45,  0.4, 0.5, 0, 0.2, 0.6, 0.512, 1.2, 2.05])  # Substituir pelos pontos reais
+    # Lista de coordenadas (x, y)
+    pontos = [(-1.0, 2.05), (-0.75, 1.153), (-0.6, 0.45), (-0.5, 0.4), 
+              (0.3, 0.5), (0.0, 0.0), (0.2, 0.2), (0.4, 0.6), 
+              (0.5, 0.512), (0.7, 1.2), (1.0, 2.05)]  # Pontos reais fornecidos
+
+    # Separando os pontos em arrays x e y
+    x_exemplo = np.array([p[0] for p in pontos])
+    y_exemplo = np.array([p[1] for p in pontos])
 
     # 🔹 Passo 2: Definir as funções base para ajuste (modelo quadrático)
-    funcoes_base = [lambda x: 1, lambda x: x, lambda x: x**2]  # Para ajuste quadrático (modelo 2º grau)
-    #funcoes_base = [lambda x: 1, lambda x: x]  # Modelo linear
-    #funcoes_base = [lambda x: 1, lambda x: x, lambda x: x**2, lambda x: x**3]  # Modelo cúbico 
-    #funcoes_base = [lambda x: 1, lambda x: np.exp(x)]  # Modelo exponencial (sem transformação) y=ae^bx
-    #log_y = np.log(y_exemplo)  # Transformar y em log(y)
-    #funcoes_base = [lambda x: 1, lambda x: x]  # Ajustar o modelo linear aos valores logarítmicos
-    #funcoes_base = [lambda x: 1, lambda x: np.sin(x), lambda x: np.cos(x)]  # Modelo senoidal
-    #funcoes_base = [lambda x: 1, lambda x: np.log(x)]  # Modelo logarítmico
+    
+    # Exemplos de funções base para diferentes tipos de ajuste:
+    
+    # 1. Ajuste quadrático (modelo 2º grau)
+    funcoes_base = [lambda x: x**2]
 
+    # funcoes_base = [lambda x: 1, lambda x: x, lambda x: x**2]  # Para ajuste quadrático (modelo 2º grau)
+    
+    # 2. Ajuste linear (modelo 1º grau)
+    # funcoes_base = [lambda x: 1, lambda x: x]  # Modelo linear
+    
+    # 3. Ajuste cúbico (modelo 3º grau)
+    # funcoes_base = [lambda x: 1, lambda x: x, lambda x: x**2, lambda x: x**3]  # Modelo cúbico
+    
+    # 4. Ajuste exponencial (modelo y = ae^bx), sem transformação (funções para modelos exponenciais)
+    # funcoes_base = [lambda x: 1, lambda x: np.exp(x)]  # Exponencial (modelo sem transformação)
+    
+    # 5. Ajuste logarítmico (modelo y = a + b * log(x))
+    # funcoes_base = [lambda x: 1, lambda x: np.log(x)]  # Logarítmico (modelo sem transformação)
+    
+    # 6. Ajuste seno (modelo y = a * sin(x) + b * cos(x))
+    # funcoes_base = [lambda x: 1, lambda x: np.sin(x), lambda x: np.cos(x)]  # Modelo senoidal
+    
+    # 7. Ajuste exponencial com transformação logarítmica
+    # log_y = np.log(y_exemplo)  # Transformar y em log(y)
+    # funcoes_base = [lambda x: 1, lambda x: x]  # Ajuste linear aos valores logarítmicos
+    
     # 🔹 Passo 3: Aplicar o método dos mínimos quadrados
     coef, func_ajustada = minimos_quadrados(x_exemplo, y_exemplo, funcoes_base)
 

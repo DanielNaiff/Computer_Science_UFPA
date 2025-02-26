@@ -19,10 +19,12 @@ def interpolacao_linear(pontos):
 
 # Função para avaliar o polinômio para um valor x
 def avaliar_polinomio(coeficientes, x_val):
+    """Avalia o polinômio interpolador para um valor de x."""
     return np.polyval(coeficientes[::-1], x_val)
 
 # Função para formatar o polinômio como string
 def formatar_polinomio(coeficientes):
+    """Formata o polinômio como uma string, exibindo seus coeficientes."""
     termos = []
     grau = len(coeficientes) - 1
     for i, coef in enumerate(coeficientes):
@@ -35,7 +37,13 @@ def formatar_polinomio(coeficientes):
                 termos.append(f"{coef:.4f}x^{grau - i}")
     return " + ".join(termos)
 
+# Função para testar um valor específico de x no polinômio
+def testar_valor_x(coeficientes, x_val):
+    """Testa um valor x no polinômio interpolador."""
+    return avaliar_polinomio(coeficientes, x_val)
+
 # Pontos de exemplo para interpolação
+# pontos = [ (0,-2.78), (0.5,-2.241), (1,-1.65), (1.5, -0.594), (2,1.34), (2.5,4.564)]
 pontos = [(-1, 4), (0, 1), (2, -1)]
 
 # Resolvendo o sistema linear
@@ -44,6 +52,11 @@ coeficientes = interpolacao_linear(pontos)
 # Exibindo o polinômio encontrado
 polinomio = formatar_polinomio(coeficientes)
 print(f"Polinômio Interpolador: {polinomio}")
+
+# Testando o valor de x = 1.2 no polinômio
+x_test = 1.23
+y_test = testar_valor_x(coeficientes, x_test)
+print(f"Valor do polinômio para x = {x_test}: y = {y_test:.4f}")
 
 # Gerando valores de x para o gráfico
 x_vals = np.linspace(min(pontos, key=lambda p: p[0])[0], max(pontos, key=lambda p: p[0])[0], 100)
