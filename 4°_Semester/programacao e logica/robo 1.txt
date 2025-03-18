@@ -1,0 +1,78 @@
+% Some simple test Prolog programs
+% --------------------------------
+
+% Knowledge bases
+:- dynamic(state/2).
+:- dynamic(has/2).
+:- dynamic(in_room/2).
+room(room1).
+room(room2).
+key(key1).
+door(door1).
+agent(agent1).
+
+state(door1, closed).
+state(key1,floor).
+state(agent1,free).
+has(agent1,none).
+opens(key1,door1).
+in_room(key1,room1).
+in_room(agent1,room1).
+in_room(door1,room1).
+connects(door1,room1,room2).
+connects(room1,room2).
+
+can_open_door(Agent,Door):-
+    has(Agent,Key),
+    opens(Key,Door),
+    state(Door,closed),
+  	state(Agent,with_item),
+	state(Key,grasped),
+    connects(Door,Room1,Room2),
+    (in_room(Agent,Room1) ; in_room(Agent,Room2)).
+
+can_grasp_key(Agent,Key):-
+    agent(Agent),%Así podemos filtrar en caso de que se cumpla otra cosa
+    key(Key),
+    in_room(Agent,Room),
+    in_room(Key,Room),
+    state(Agent,free),
+	state(Key,floor).
+
+can_go_room(Agent,Room1, Room2):-
+    agent(Agent),
+    room(Room1),
+    room(Room2),
+    Room1\=Room2,
+    (connects(Door, Room1, Room2) ; connects(Door, Room2, Room1)),
+    (connects(Room1,Room2) ; connects(Room2,Room1)),
+    (in_room(Agent,Room1);in_room(Agent,Room2)),
+    (in_room(Agent,Room2);in_room(Agent,Room1)),
+    state(Door, opened).
+
+do_grasp(Agent, Key):-
+   	agent(Agent),%Así podemos filtrar en caso de que se cumpla otra cosa
+    key(Key),
+    can_grasp_key(Agent,Key),
+    assertz(state(Agent,with_item)),
+	assertz(state(Key,grasped)),
+	assertz(has(Agent,Key)),
+    retract(state(Agent,free)),
+	retract(state(Key,floor)),
+	retract(has(Agent,none)).
+
+do_open(Agent,Door):-
+    agent(Agent),%Así podemos filtrar en caso de que se cumpla otra cosa
+    door(Door),
+    can_open_door(Agent,Door),
+    assertz(state(Door,opened)),
+    retract(state(Door,closed)).
+
+do_go_room(Agent,Room1,Room2):-
+    agent(Agent),
+    room(Room1),
+    room(Room2),
+    can_go_room(Agent,Room1,Room2),
+    assertz(in_room(Agent, Room2)),
+    retract(in_room(Agent, Room1)).
+    

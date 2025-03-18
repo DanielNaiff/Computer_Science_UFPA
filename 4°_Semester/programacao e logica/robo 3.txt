@@ -1,0 +1,140 @@
+:- dynamic vertice/1.
+:- dynamic aresta/2.
+:- dynamic lanterna/1.
+:- dynamic energia/1.
+:- dynamic mochila/1.
+:- dynamic obj/2.
+:- dynamic log/1.
+:- dynamic flag_inspecionar/1.
+
+energia(100).
+lanterna(1).
+flag_inspecionar(1).
+
+log([]).
+
+
+
+
+add_vertice(Local):- vertice(Local), write("esse local já existe"),!.
+add_vertice(Local):- assertz(vertice(Local)), write("o local foi adicionado"),
+    registrar_log(["Vertice ", Local, " Adicionado" ]),
+    !.
+
+add_aresta(Src,Dst):- aresta(Src,Dst), write("Teste"),!.
+add_aresta(Src,Dst):- assertz(aresta(Src,Dst)),assertz(aresta(Dst,Src)),
+    write("Ligacao foi feita"),
+    registrar_log(["Aresta de ", Src, " para ", Dst, " feita"]),!.
+
+add_obj(Obj,Local) :- vertice(Local), assertz(obj(Obj)), write("O objeto foi adicionado"),
+    registrar_log(["Objeto ", Obj, " adicionado em ", Local]),!.
+add_obj(_,_) :- write("O Local nao existe, portanto nenhum objeto foi adicionado"),!.
+
+inspecionar:- lanterna(1),energia(X), X >= 10,obj(robo, Local), write("O robo esta em "),
+    write(Local), nl,
+    write(". A lista de objetos no local eh: "),
+    findall(O, obj(O, Local), Objetos),
+    write(Objetos),
+    NovaEnergia is X - 10,
+    retract(energia(_)),
+    asserta(energia(NovaEnergia)),
+    retract(flag_inspecionar(_)),
+    asserta(flag_inspecionar(1)),
+    registrar_log(["O robo inspecionou"]),!.
+
+inspecionar:- lanterna(0), write("Lanterna esta desligada ou A energia está abaixo de 10 porcento"),
+    registrar_log(["O robo tentou inspecionar porem nao conseguiu"]).
+
+ligar_lanterna:- lanterna(1),write("A lanterna ja esta ligada"),
+    registrar_log(["O robo tentou ligar a lanterna porem ja estava ligada"]),!.
+ligar_lanterna:- lanterna(0), retract(lanterna(_)), asserta(lanterna(1)),
+    write("A lanterna foi ligada"),
+    registrar_log(["O robo ligou a lanterna"]),!.
+
+desligar_lanterna:- lanterna(0),write("A lanterna ja esta desligada"),
+    registrar_log(["O robo tentou desligar a lanterna porem ja estava desligada"]),!.
+desligar_lanterna:- lanterna(1), retract(lanterna(_)), asserta(lanterna(0)),
+    write("A lanterna foi desligada"),
+    registrar_log(["O robo desligou a lanterna"]),!.
+mochila:- mochila([]), write("A mochila esta vazia por enquanto"),
+    registrar_log(["O robo verificou os itens da mochila porem estava vazia"]),!.
+
+mochila:- mochila(Mochila), write("Os objetos na mochila são: "),
+     write(Mochila),
+     registrar_log(["O robo verificou os itens da mochila"]), !.
+
+
+
+pegar(Objeto):- flag_inspecionar(1),energia(Energia), Energia > 5,obj(robo, Local), obj(Objeto, Local),
+    mochila(Mochila), length(Mochila, Tam),
+    Tam < 2, \+ member(Objeto,Mochila),
+    retract(obj(Objeto, Local)), append(Mochila, [Objeto], NovaMochila),
+    retract(mochila(_)), assertz(mochila(NovaMochila)),
+    write('O robo pegou o objeto: '), write(Objeto),
+    NovaEnergia is Energia - 5,
+    retract(energia(_)),
+    asserta(energia(NovaEnergia)),
+    registrar_log(['O robo pegou ', Objeto]),!.
+
+pegar(_):- write("Verifique se voce ja inspecionou o local, se tem bateria o suficiente, "), nl,
+    write("ou se já tem 2 objetos na sua mochila"),
+    registrar_log(["O robo tentou pegar algum item porem nao conseguiu"]).
+
+soltar(Objeto):- energia(Energia),obj(robo,Local), mochila(Mochila),
+    member(Objeto,Mochila), asserta(obj(Objeto,Local)),
+    delete(Mochila, Objeto, NovaMochila), retract(mochila(_)),
+    asserta(mochila(NovaMochila)),
+    write('O robo soltou o objeto: '), write(Objeto),
+    NovaEnergia is Energia - 5,
+    retract(energia(_)),
+    asserta(energia(NovaEnergia)),
+    registrar_log(["O robo soltou ", Objeto]),
+    !.
+
+soltar(_):- write("Verifique se voce possui o item na sua mochila"), nl,
+    registrar_log(["O robo tentou soltar algum objeto porem nao conseguiu"]),!.
+
+caminhar(Dst):- vertice(Dst), obj(robo, Src),
+    aresta(Src,Dst), retract(obj(robo,Src)),
+    asserta(obj(robo,Dst)), energia(Energia),
+    write('O robo caminhou de '), write(Src),
+    write(' para '), write(Dst),
+    nl,(lanterna(1) ->EnergiaGasta = 10; EnergiaGasta = 5),
+    NovaEnergia is Energia - EnergiaGasta,
+    retract(energia(_)),
+    asserta(energia(NovaEnergia)),
+    retract(flag_inspecionar(_)), asserta(flag_inspecionar(0)),
+    registrar_log(["O robo caminhou de ", Src ," para ", Dst]),
+    !.
+
+caminhar(_):- write("Verifique se existe uma passagem para o seu destino"),
+              write("ou se possui bateria"),
+              registrar_log(['O robo tentou caminhar mas nao conseguiu']).
+
+carregar:- obj(robo,LocalRobo), obj(carregador,LocalCarregador),
+    LocalRobo =:= LocalCarregador, retract(energia(_)),
+    asserta(energia(100)), write("O robo foi carregado com sucesso"),
+    registrar_log(["O robo recarregou as energias"]),!.
+carregar:- write("O carregador precisa estar na mesma sala que o robo"),
+    registrar_log(["O robo tentou recarregar porem nao conseguiu"]),!.
+
+
+status_robo:- obj(robo, Local),write("O robo está no "), write(Local), nl,
+    (lanterna(1) -> write("A lanterna esta acessa"); write("A lanterna esta apagada")), nl,
+    energia(Energia), write("O nivel de energia é "), write(Energia), nl,
+    mochila(Mochila), length(Mochila,Tam),
+    write("A quantidade de objetos dentro da mochile eh "), write(Tam), nl,
+    registrar_log(["O robo chegou o proprio status"]), !.
+
+registrar_log(Mensagem) :-
+    log(LogAtual),
+    append(LogAtual, [Mensagem], NovoLog),
+    retract(log(_)),
+    assertz(log(NovoLog)).
+
+log :-
+    log(Log),
+    write('--- Historico de Consultas ---'), nl,
+    (Log = [] ->
+        write('Nao ha historico de consultas.'), nl;
+        write(Log), nl).

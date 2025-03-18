@@ -1,0 +1,774 @@
+
+rExecutarAcao(Acao,Argumento):-
+	call(Acao,Argumento),!.
+
+rExecutarAcao(Acao):- call(Acao),!.
+
+rAcaoNada.
+
+
+rAcaoAvante(Sala):-
+	rMove(Sala),!.
+
+rAcaoSalaSegura:-
+	pLocalAgente(Local),
+	pAdjacente(Local,Lista),!,
+	filter(pSalaSegura,Lista,Lista2),
+	sort(Lista2,SalasSeguras),
+	random_member(SalaSegura,SalasSeguras),
+	rExecutarAcao(rAcaoAvante,SalaSegura).
+
+rAcaoPegarOuro:-
+	rUpdatePontos(1000),
+	assert(pEncontrouOuro),
+	retract(ouro(_)),!.
+
+rAcaoVirarOeste:-
+	retract(pSentidoAgente(_)),
+	assert(pSentidoAgente(oeste)),!.
+
+rAcaoVirarLeste:-
+	retract(pSentidoAgente(_)),
+	assert(pSentidoAgente(leste)),!.
+
+rAcaoVirarNorte:-
+	retract(pSentidoAgente(_)),
+	assert(pSentidoAgente(norte)),!.
+	
+rAcaoVirarSul:-
+	retract(pSentidoAgente(_)),
+	assert(pSentidoAgente(sul)),!.
+
+:- dynamic
+([
+	pAdjacente/2,		% definição do mundo 
+	pAgenteVivo/0, 		% definição do mundo
+	brisa/1,       		% definição do mundo e conhecimento do agente
+	buraco/1,          	% definição do mundo
+	pDimensaoCaverna/1,	% definição do mundo
+	pTempo/1,			% definição do mundo
+	fedor/1,			% definição do mundo e conhecimento do agente
+	pLocalAgente/1,		% definição do mundo
+	pLocalWumpus/1,		% definição do mundo
+	pNoPit/1,			% conhecimento do agente
+	pNoWumpus/1,		% conhecimento do agente
+	pTempoMax/1,		% definição do mundo
+	pSentidoAgente/1,	% conhecimento do agente
+	ouro/1,				% definição do mundo
+	pbrisa/1,			% conhecimento do agente
+	pfedor/1,			% conhecimento do agente
+	p_pit/1,			% conhecimento do agente
+	p_wumpus/1,			% conhecimento do agente
+	pEncontrouOuro/0,	% conhecimento do agente
+	pit/1,				% conhecimento do agente
+	pPontos/1,			% conhecimento do agente 
+	pSalaSegura/1,		% conhecimento do agente
+	pSalaVisitada/1,	% conhecimento do agente
+	pUltimaAcao/1,		% conhecimento do agente
+	pUltimoSendito/1,	% conhecimento do agente
+	pUltimoMovimento/1,	% conhecimento do agente
+	pUltimaSala/1,		% conhecimento do agente
+	pStatusWumpus/0,	% definição do mundo e conhecimento do agente
+	pWumpus/1			% conhecimento do agente
+]).
+
+decisao(_,nada):-
+	estrategia(_,nada).
+
+decisao(Acao,Percepcao):-
+	estrategia(Acao,Percepcao).
+	
+estrategia(rAcaoNada,_):-
+	rAgenteStatus(Status),
+	(Status==morto)
+		-> 
+			rExecutarAcao(rAcaoNada).
+
+estrategia(rAcaoPegarOuro,[_,_,brilho]):-
+	rExecutarAcao(rAcaoPegarOuro),!.
+
+estrategia(rAcaoAvante,[nada,nada,nada]):-
+	rSalaNaoVisitada(Sala),
+	(Sala \= [])
+		->
+			(rExecutarAcao(rAcaoAvante,Sala));
+	rSalaSegura(Sala2),
+	rExecutarAcao(rAcaoAvante,Sala2),!.	
+
+estrategia(rAcaoSalaSegura,[fedor,_,nada]):-
+	rExecutarAcao(rAcaoSalaSegura),!.
+	
+estrategia(rAcaoSalaSegura,[_,brisa,nada]):-
+	rExecutarAcao(rAcaoSalaSegura),!.
+
+estrategia(nada,[_,_,nada]):- rExecutarAcao(rAcaoNada),!.
+
+show_init:-
+	separador,
+	rAgenteStatus(S),
+	format('Agente: ~w~n',[S]),
+	separador,
+	pLocalAgente(L),
+	format('Local Agente: ~w~n',[L]),	
+	separador,
+	pPontos(Pts),
+	format('Pontos: ~w~n',[Pts]),
+	separador,
+	pLocalWumpus(W),
+	format('Local Wumpus: ~w~n',[W]),
+	separador,
+	setof(B,buraco(B),LB),
+	format('Buracos: ~w~n',[LB]),
+	separador,
+	ouro(O),
+	format('Ouro: ~w~n',[O]),
+	separador2,
+	!.
+	
+show:-
+	pTempo(E),
+	write('Tempo: '),
+	writeln(E),	
+	ansi_format([fg(cyan)],'Status do Agente:',[]),
+	rAgenteStatus(S),
+	writeln(S),
+	pLocalAgente(L),
+	write('Local Agente:'),
+	writeln(L),
+	!.
+
+separador:-	format('~`-t ~80|',[]).
+separador2:- format('~`-t ~80|~n',[]).
+
+
+start:-
+	retractall(pDimensaoCaverna(_)),
+	retractall(pAdjacente(_,_)),
+	retractall(pAgenteVivo),
+	retractall(brisa(_)),
+	retractall(buraco(_)),
+	retractall(pTempo(_)),
+	retractall(fedor(_)),
+	retractall(pLocalAgente(_)),
+	retractall(pLocalWumpus(_)),
+	retractall(pTempoMax(_)),
+	retractall(ouro(_)),
+	retractall(pEncontrouOuro),
+	retractall(pbrisa(_)),
+	retractall(pfedor(_)),
+	retractall(p_pit(_)),
+	retractall(p_wumpus(_)),
+	retractall(pit(_)),
+	retractall(pPontos(_)),
+	retractall(pSalaSegura(_)),
+	retractall(pUltimaSala(_)),
+	retractall(pSentidoAgente(_)),
+	retractall(pSalaVisitada(_)),
+	retractall(pSalaSegura(_)),
+	retractall(pStatusWumpus),
+	retractall(pWumpus(_)),
+	retractall(pNoPit(_)),
+	retractall(pNoWumpus(_)),
+	assert(pDimensaoCaverna(4)),
+	assert(pAgenteVivo),
+	assert(pTempo(0)),
+	assert(pLocalAgente([1,1])),
+	assert(pTempoMax(4)),
+	assert(pSentidoAgente(leste)),
+	assert(pSalaVisitada([1,1])),
+	assert(pSalaSegura([1,1])),
+	assert(pNoPit([1,1])),
+	assert(pNoWumpus([1,1])),
+	assert(pStatusWumpus),
+	assert(pPontos(0)),
+	assert(pUltimaSala([1,1])),
+	assert(pAdjacente([1,1],[[1,2],[2,1]])),
+	assert(pAdjacente([1,2],[[1,1],[1,3],[2,2]])),
+	assert(pAdjacente([1,3],[[1,2],[1,4],[2,3]])),
+	assert(pAdjacente([1,4],[[1,3],[2,4]])),
+	assert(pAdjacente([2,1],[[1,1],[2,2],[3,1]])),
+	assert(pAdjacente([2,2],[[1,2],[2,1],[2,3],[3,2]])),
+	assert(pAdjacente([2,3],[[1,3],[2,2],[2,4],[3,3]])),
+	assert(pAdjacente([2,4],[[1,4],[2,3],[3,4]])),
+	assert(pAdjacente([3,1],[[2,1],[3,2],[4,1]])),
+	assert(pAdjacente([3,2],[[2,2],[3,1],[3,3],[4,2]])),
+	assert(pAdjacente([3,3],[[2,3],[3,2],[3,4],[4,3]])),
+	assert(pAdjacente([3,4],[[2,4],[3,3],[4,4]])),
+	assert(pAdjacente([4,1],[[3,1],[4,2]])),
+	assert(pAdjacente([4,2],[[3,2],[4,1],[4,3]])),
+	assert(pAdjacente([4,3],[[3,3],[4,2],[4,4]])),
+	assert(pAdjacente([4,4],[[3,4],[4,3]])),
+	rSalaOuro,
+	rSalaWumpus(1),
+	r_Fedor,
+	rSorteiaBuracos(2),
+	!.
+	
+init:-
+	start,
+	show_init,
+	!.
+
+rLNoPit([]).
+rLNoPit([X|Y]):-
+	retractall(p_pit(X)),
+	retractall(pNoPit(X)),
+	assert(pNoPit(X)),
+	rLNoPit(Y).
+
+rNoPit(Sala):-
+	setof(Sala,pAdjacente(Sala,Lista),_),
+	rLNoPit(Lista).
+rNoPit.
+
+rLNoWumpus([]).
+rLNoWumpus([X|Y]):-
+	retractall(p_wumpus(X)),
+	retractall(pNoWumpus(X)),
+	assert(pNoWumpus(X)),
+	rLNoWumpus(Y).
+	
+rNoWumpus(Sala):-
+	setof(Sala,pAdjacente(Sala,Lista),_),
+	rLNoWumpus(Lista).
+rNoWumpus.
+
+rLSalaSegura([]).
+rLSalaSegura([X|Y]):-
+	retractall(pSalaSegura(X)),
+	retractall(p_pit(X)),
+	retractall(p_wumpus(X)),
+	assert(pSalaSegura(X)),
+	rLSalaSegura(Y).
+
+rSalaSegura:-
+	pLocalAgente(L),
+	(
+		retractall(pSalaSegura(L)),
+		assert(pSalaSegura(L)),
+		not(pbrisa(L)),
+		rNoPit(L),
+		not(pfedor(L)),
+		rNoWumpus(L),
+		setof(L,pAdjacente(L,Lista),_),
+		rLSalaSegura(Lista)
+    ).
+rSalaSegura.
+
+rLPossivelWumpus([]).
+rLPossivelWumpus([X|Y]):-
+	(
+		not(pNoWumpus(X)),
+		retractall(p_wumpus(X)),
+		assert(p_wumpus(X))
+	);
+	rLPossivelWumpus(Y).
+
+rPossivelWumpus:- pWumpus(_),retractall(p_wumpus(_)),!.
+
+rPossivelWumpus:-
+	pLocalAgente(L),
+	retractall(p_wumpus(L)),
+	pfedor(L),
+	setof(L,pAdjacente(L,Lista),_),!,
+	exclude(pSalaSegura,Lista,Lista2),
+	rLPossivelWumpus(Lista2).
+rPossivelWumpus.
+	
+rLPossivelPit([]).
+rLPossivelPit([X|Y]):-
+	(
+		not(pNoPit(X)),
+		retractall(p_pit(X)),
+		assert(p_pit(X))
+	);
+	rLPossivelPit(Y).
+	
+rPossivelPit:-
+	pLocalAgente(L),
+	retractall(p_pit(L)),
+	pbrisa(L),
+	setof(L,pAdjacente(L,Lista),_),!,
+	exclude(pSalaSegura,Lista,Lista2),
+	exclude(pit,Lista2,Lista3),
+	exclude(pWumpus,Lista3,Lista4),
+	rLPossivelPit(Lista4).
+rPossivelPit.
+
+% cria uma lista contendo todas as salas onde percebeu brisa para tentar inferir onde está o buraco.
+rSalaPit:- 
+	pLocalAgente(L),
+	pbrisa(L),
+	setof(L,pAdjacente(L,L1),_),
+	exclude(pSalaSegura,L1,L2),
+	tamLista(L2,T2),
+	(T2 == 1)
+		->
+			(
+				pertence(E,L2),
+				retractall(pSalaSegura(E)),
+				retractall(p_pit(E)),
+				retractall(pit(E)),
+				assert(pit(E))
+			).
+rSalaPit.
+
+% cria uma lista contendo todas as salas onde percebeu brisa para tentar inferir onde está o buraco.
+
+rSalaWumpus:- pWumpus(_),!.
+
+rSalaWumpus:-
+	pLocalAgente(L),
+	pfedor(L),
+	setof(L,pAdjacente(L,L1),_),
+	exclude(pSalaSegura,L1,L2),
+	tamLista(L2,T2),
+	(T2 == 1)
+		->
+			(
+				pertence(E,L2),
+				retractall(pSalaSegura(E)),
+				retractall(p_wumpus(E)),
+				retractall(pWumpus(E)),
+				assert(pWumpus(E))
+			).
+rSalaWumpus.
+
+rInformarPercepcao(morto):-
+	rAgenteStatus(Status),
+	Status==morto,!.
+	
+rInformarPercepcao([F,B,O]):-
+	call(rPercebeFerdor,F),
+	call(rPercebeBrisa,B),
+	call(rPercebeBrilho,O),
+	!.
+
+rPercebeFerdor(fedor):-
+	pLocalAgente(X),
+	retractall(pfedor(X)),
+	assert(pfedor(X)),
+	!.
+rPercebeFerdor(nada).
+
+rPercebeBrisa(brisa):-
+	pLocalAgente(X),
+	retractall(pbrisa(X)),
+	assert(pbrisa(X)),
+	!.
+rPercebeBrisa(nada).
+
+rPercebeBrilho(_).
+
+
+:- use_module(library(random)).
+
+rFim:-
+	(not(pAgenteVivo))
+		->
+			(writeln('Fim!'));
+	pEncontrouOuro,
+	!.
+	
+rMove(SalaDestino):-
+	pLocalAgente(Local),
+	retractall(pUltimaSala(_)),
+	assert(pUltimaSala(Local)),
+	retractall(pSalaVisitada(Local)),
+	assert(pSalaVisitada(Local)),
+	rSentidoAgente(SalaDestino),
+	retractall(pLocalAgente(_)),
+	assert(pLocalAgente(SalaDestino)),
+	!.
+
+rSalaNaoVisitada(SalaNVisitada):-
+	pLocalAgente(Local),
+	pAdjacente(Local,Lista),
+	exclude(pSalaVisitada,Lista,NaoVisitadas),
+	primeira(SalaNVisitada,NaoVisitadas),
+	!.
+
+rSalaSegura(SalaSegura):-
+	pLocalAgente(Local),
+	pAdjacente(Local,Lista),
+	filter(pSalaSegura,Lista,Seguras),
+	sort(Seguras,SalasOrdenadas),
+	random_member(SalaSegura,SalasOrdenadas),
+	!.
+
+rArriscar:-
+	random(0.0,1.0,Probabilidade),
+	Probabilidade =< 0.4,
+	!.
+	
+rSalaAleatoria(Sala):-
+	pLocalAgente(Local),	
+	pAdjacente(Local,Lista),
+	random_member(Sala,Lista),
+	!.
+
+rSentidoAgente([H|T]):-
+	pLocalAgente([X|Y]),
+	(
+		(
+			(H < X)
+				->
+					(rAcaoVirarSul);
+			(H > X)
+				->
+					(rAcaoVirarNorte)	
+		);
+		(
+			(T < Y)
+				->
+					(rAcaoVirarOeste);
+			(T > Y)
+				->
+					(rAcaoVirarLeste)
+		)
+	),
+	!.
+	
+rSalaOuro:-
+	pDimensaoCaverna(Dimensao),
+	repeat,
+	random_between(1,Dimensao,Linha),
+	random_between(1,Dimensao,Coluna),
+	add(Linha,[Coluna],SalaOuro),
+	retractall(ouro(_)),
+	assert(ouro(SalaOuro)),
+	(
+		not(pit([Linha|Coluna])),
+		not(pLocalWumpus([Linha|Coluna]))
+	),
+	!.
+	
+% sorteia a sala onde estará o Wumpus	
+rSorteiaWumpus(Local):-
+	pDimensaoCaverna(Dimensao),
+	random_between(1,Dimensao,Linha),
+	random_between(1,Dimensao,Coluna),
+	add(Linha,[Coluna],Local),
+	(
+			not(pit(Local)),
+			not(ouro(Local)),
+			not(pLocalAgente(Local))
+	),
+	!.
+
+rSalaWumpus(0).
+rSalaWumpus(Quantidade):-
+	(rSorteiaWumpus(Sala)) 
+		->
+			(
+				retractall(pLocalWumpus(Sala)),
+				assert(pLocalWumpus(Sala)),
+				Contador is Quantidade-1,
+				rSalaWumpus(Contador)
+			);
+	rSalaWumpus(Quantidade),	
+	!.
+
+rSorteiaBuracos(0).
+rSorteiaBuracos(Quantidade):-
+	(rSalaBuracos)
+		->
+			(
+				Contador is Quantidade-1,
+				rSorteiaBuracos(Contador)
+			);
+			rSorteiaBuracos(Quantidade),
+	!.
+
+rSalaBuracos:-
+	pDimensaoCaverna(Dimensao),
+	random_between(1,Dimensao,Linha),
+	random_between(1,Dimensao,Coluna),
+	add(Linha,[Coluna],Sala),
+	(
+		not(buraco(Sala)),
+		not(pLocalWumpus(Sala)),
+		not(pLocalAgente(Sala)),
+		not(ouro(Sala))
+	)
+		->
+			(
+				retractall(buraco(Sala)),
+				assert(buraco(Sala)),
+				r_SBrisa(Sala)
+			),
+	!.
+	
+rAgenteStatus(Status):-
+	(call(pAgenteVivo))
+		->
+			(Status= vivo);
+	Status= morto.
+	
+rUpdatePontos(GanhoOuPerda):-
+	pPontos(PontosAtuais),
+	Pontos is PontosAtuais+GanhoOuPerda,
+	retractall(pPontos(_)),
+	assert(pPontos(Pontos)).
+
+rUpdateAgenteStatus:-
+	pLocalAgente(Local),
+	(pLocalWumpus(Local); buraco(Local))
+		->
+			(retractall(pAgenteVivo)).
+rUpdateAgenteStatus.
+	
+rUpdateStatusGeral:-
+	(
+		rSalaSegura,
+		rPossivelPit,
+		rPossivelWumpus,
+		rSalaPit,
+		rSalaWumpus,
+		pTempo(TempoAtual),
+		Tempo is TempoAtual+1,
+		retractall(pTempo(TempoAtual)),
+		assert(pTempo(Tempo))
+	),
+	!.
+	
+rUpdateInfo([Tempo,Pontos,Status,Local,Sentido,SalasSeguras,PossiveisBuracos,Buracos,LPT,PossiveisWumpus,Wumpus,L]):-
+	pTempo(Tempo),
+	pPontos(Pontos),
+	rAgenteStatus(Status),
+	pLocalAgente(Local),
+	pSentidoAgente(Sentido),
+	rInfo(SalasSeguras,PossiveisBuracos,Buracos,LPT,PossiveisWumpus,Wumpus,L),
+	!.
+	
+rInfo(SalasSeguras,PossiveisBuracos,Buracos,LPT,PossiveisWumpus,Wumpus,L):-
+	(findall(Sala,pSalaSegura(Sala),ListaSalas))
+		->
+			(sort(ListaSalas,SalasSeguras)),
+	(findall(PossivelBuraco,p_pit(PossivelBuraco),ListaPossiveisBuracos))
+		->
+			(sort(ListaPossiveisBuracos,PossiveisBuracos)),	
+	(findall(Buraco,pit(Buraco),ListaBuracos))
+		->
+			(sort(ListaBuracos,Buracos)),
+	(findall(PossivelWumpus,p_wumpus(PossivelWumpus),ListaPossiveisWumpus))
+		->
+			(sort(ListaPossiveisWumpus,PossiveisWumpus)),
+	(findall(WumpuS,pWumpus(WumpuS),ListaWumpus))
+		->
+			(sort(ListaWumpus,Wumpus)),
+	pLocalWumpus(L),
+	findall(P2,buraco(P2),Lp2),
+	sort(Lp2,LPT),
+	!.
+
+% update_Status,show,r_GetPercep(P),estrategia(Act,P).
+
+variaveis:-
+	(findall(S,pSalaSegura(S),LS))
+		->
+			(
+				sort(LS,LS1),
+				format('Seguras: ~w~n',[LS1])
+			),
+	separador,
+	(findall(P,p_pit(P),LP))
+		->
+			(
+				sort(LP,LP1),
+				format('Possiveis pits: ~w~n',[LP1])
+			),	
+	separador,
+	(findall(P1,pit(P1),Lp1))
+		->
+			(
+				sort(Lp1,LP2),
+				format('Buracos encontrados: ~w~n',[LP2])
+			),
+	separador,
+	findall(P2,buraco(P2),Lp2),
+	sort(Lp2,LPT),
+	format('Buracos: ~w~n',[LPT]),
+	separador,	
+	(findall(W,p_wumpus(W),LW))
+		->
+			(
+				sort(LW,Lw1),
+				format('Possiveis locais do wumpus: ~w~n',[Lw1])
+			),
+	separador,
+	(findall(W1,pWumpus(W1),LW1))
+		->
+			(
+				sort(LW1,LW2),
+				format('Wumpus: ~w~n',[LW2])
+			),
+	separador,			
+	pLocalWumpus(L),
+	format('Local Wumpus: ~w~n',[L]),
+	separador2.
+	
+
+list_Brisa([]).
+list_Brisa([X|Y]):-
+	retractall(brisa(X)),
+	(assert(brisa(X)),!),
+	list_Brisa(Y),
+	!.
+	
+r_SBrisa(B):-
+	buraco(B),
+	pAdjacente(B,Lista),!,
+	list_Brisa(Lista).
+
+	
+list_Fedor([]).
+list_Fedor([X|Y]):-
+	retractall(fedor(X)),
+	assert(fedor(X)),
+	list_Fedor(Y),
+	!.
+
+r_Fedor:-
+	pLocalWumpus(W),
+	(pAdjacente(W,Lista),!),
+	list_Fedor(Lista),
+	!.
+	
+	
+r_Teste_1:-
+	retractall(pLocalAgente(_)),
+	assert(pLocalAgente([2,1])),
+	r_SBrisa([2,2]),
+	rPossivelPit,
+	retract(p_pit([1,1])),
+	retract(p_pit([3,1])),
+	!.
+
+r_Teste_2:-
+	retractall(pLocalAgente(_)),
+	assert(pLocalAgente([3,1])),
+	r_SBrisa([3,2]),
+	rPossivelPit,
+	retract(p_pit([2,1])),
+	retract(p_pit([4,1])),
+	!.
+	
+teste:-
+	separador,
+	pTempo(E),
+	format('Tempo: ~w || ',[E]),
+	% separador,
+	pPontos(Pts),
+	format('~t Pontos: ~w~n',[Pts]),
+	separador,
+	pLocalAgente(L),
+	pSentidoAgente(O),
+	format('Local Agente: ~w || ',[L]),
+	format('Sentido Agente: ~w~n',[O]),
+	separador,
+	rUpdateAgenteStatus,
+	r_GetPercep(Percep),
+	format('Percep: ~w~n',[Percep]),
+	separador,
+	rUpdateStatusGeral,
+	decisao(Act,Percep),
+	format('Acao: ~w~n',[Act]),
+	separador,
+	variaveis,
+	!.
+	
+r_GetPercep(nada):-
+	rAgenteStatus(S),
+	S==morto,	
+	!.
+	
+r_GetPercep([F,B,O]):-
+	call(pFedor,F),
+	call(pBrisa,B),
+	call(pBrilho,O),
+	!.
+
+pBrilho(brilho):-
+	pLocalAgente(X),
+	ouro(X),
+	!.
+pBrilho(nada).
+
+pFedor(fedor):-
+	pLocalAgente(X),
+	fedor(X),
+	retractall(pfedor(X)),
+	assert(pfedor(X)),
+	!.
+pFedor(nada).
+
+pBrisa(brisa):-
+	pLocalAgente(X),
+	brisa(X),
+	retractall(pbrisa(X)),
+	assert(pbrisa(X)),
+	!.
+pBrisa(nada).
+
+getLocalAgente(X,Y):- pLocalAgente([H|[T|_]]),X=H,Y=T,!.
+
+
+filter(_,[],[]).
+filter(P,[H|T],L):-
+	(
+		(call(P,H))
+			-> 
+			(L = [H|C]);
+    	L = C % a variável C nunca é instanciada.
+    ),
+	filter(P,T,C),
+	!.
+
+exclude2(_,[],[]).
+exclude2(P,[[H]|[T]],L):-
+	(
+		(not(call(P,[H])))
+			->
+			([L]=[[H],[C]]);
+		L= [C]
+	),
+	exclude2(P,[T],[C]),
+	!.
+	
+exclude(_,[],[]).
+exclude(P,[H|T],L):-
+	(
+		(not(call(P,H)))
+			-> 
+			(L = [H|C]);
+    	L = C % a variável C nunca é instanciada.
+    ),
+	exclude(P,T,C),
+	!.	
+
+add([],L,L).
+add(S,L,[S|L]).
+
+append([],L,L).
+append([H|T],L2,[H|L3]):-append(T,L2,L3).
+
+pertence(S,[S|_]).
+pertence(S,[_|C]):-pertence(S,C).
+
+tamLista([],0).
+tamLista([_|C],T):-tamLista(C,T2),T is T2+1.
+
+primeira([],[]).
+primeira(P,[H|_]):-P = H,!.
+
+merge([],L,L) :- !.
+merge(L,[],L) :- !.
+merge([H1|T1],[H2|T2],[H|R]) :-
+	(
+		H1 @=< H2
+			->  H = H1,
+				merge(T1,[H2|T2],R);
+		H = H2,
+		merge([H1|T1],T2,R)
+	).
