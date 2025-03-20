@@ -13,27 +13,26 @@ maca([]).
 
 % Definindo os locais do ambiente
 vertice(hub, semIncendio).
-vertice(calcada, semIncendio).
 vertice(cozinha, incendio).
 vertice(quarto1, semIncendio).
 vertice(quarto2, semIncendio).
 vertice(banheiro, semIncendio).
+vertice(calcada).
 
 % Definindo as arestas
-aresta(calcada, hub).
-aresta(hub, calcada).
 
 aresta(hub, cozinha).
 aresta(cozinha, hub).
 
-aresta(hub, quarto1).
-aresta(quarto1, hub).
+aresta(quarto1, quarto2).
+aresta(quarto2, quarto1).
 
-aresta(hub, quarto2).
-aresta(quarto2, hub).
+aresta(calcada, hub).
+aresta(hub, calcada).
 
 aresta(banheiro, quarto1).
 aresta(quarto1, banheiro).
+
 
 % Definindo pessoas
 pessoa(p1,hub,100).
@@ -91,29 +90,44 @@ pegar(P):- robo(Local,_),
            retract(pessoas(ListaAtual)), % Remove a lista atual de pessoas
            select(P, ListaAtual, NovaLista), % Remove a pessoa da lista
            assert(pessoas(NovaLista)),
-           format('Pegou a pessoa ~w do local ~w.~n', [P,Local]).
+           format('Pegou a pessoa ~w do local ~w.~n', [P,Local]),
            registrar_acoes(pegar),!.
            
 pegar(P):- maca(Pessoas),
            length(Pessoas, N),
            N == 1,
-           format('A maca ja possui uma pessoa'),
-           registrar_acoes(pegar),!.
+           format('A maca ja possui uma pessoa'),!.
 
 pegar(P): format('A pessoa ~w nao esta no local',[P]),!.
 
 %Soltar
            
-soltar(P):- maca([P]),
+soltar(P):-
+            maca([P]),
             robo(Local,_),
-            pessoa(P, maca, _),
+            Local \= calcada,
+            pessoa(P, maca, O),
             retract(maca([P])),
             assert(maca([])),
-            retract(pessoa(P, maca,_)),
-            assert(pessoa(P, Local, _)),
+            retract(pessoa(P, maca,O)),
+            assert(pessoa(P, Local, O)),
             retract(pessoas(ListaPessoas)),
-            append(ListaPessoas, P, NovaLista),
+            format('~w.~n',[ListaPessoas]),
+            NovaLista = [P| ListaPessoas],
             assert(pessoas(NovaLista)),
+            format('~w.~n',[NovaLista]).
+            format('voce soltou a pessao ~w no local ~w.~n', [P, Local]),
+            registrar_acoes(soltar),!.
+            
+soltar(P):-
+            maca([P]),
+            robo(Local,_),
+            Local == calcada,
+            pessoa(P, maca, O),
+            retract(maca([P])),
+            assert(maca([])),
+            retract(pessoa(P, maca,O)),
+            assert(pessoa(P, Local, O)),
             format('voce soltou a pessao ~w no local ~w.~n', [P, Local]),
             registrar_acoes(soltar),!.
 
@@ -129,7 +143,7 @@ caminhar(Destino):- robo(Local, O),
                     format('Voce caminhou de ~w para ~w.~n',[Local, Destino]),
                     registrar_acoes(caminhar),
                     diminuir_oxigenio,
-                    espalharFogo.
+                    espalharFogo,!.
 
 caminhar(Destino):-robo(Local, _);
                    \+ vertice(Destino,_);
@@ -158,7 +172,7 @@ oxigenar(P):-pessoa(P, Local, O),
              format('Nao foi possivel oxigenar ~w, pois seu oxigenio e menor ou igual a 0.~n', [P]),!.
              
 oxigenar(P):-pessoa(P, Local, O),
-             Local \= 'maca',
+             Local \= maca,
              format('Nao foi possivel oxigenar ~w, pois a pessoa nao esta na maca.~n', [P]),!.
              
 oxigenar(P):-format('Nao foi possivel oxigenar ~w.~n', [P]),!.
@@ -173,8 +187,8 @@ diminuir_oxigenio([]).
 % Caso 1: Pessoa em local com incêndio
 diminuir_oxigenio([P | Cauda]) :-
     pessoa(P, Lugar, O),
-    Lugar \= 'maca',
-    Lugar \=  'calcada',
+    Lugar \= maca,
+    Lugar \= calcada,
     vertice(Lugar, incendio),
     O > 0,
     O1 is O - 15,
@@ -186,8 +200,8 @@ diminuir_oxigenio([P | Cauda]) :-
 % Caso 2: Pessoa em local sem incêndio
 diminuir_oxigenio([P | Cauda]) :-
     pessoa(P, Lugar, O),
-    Lugar \= 'maca',
-    Lugar \=  'calcada',
+    Lugar \= maca,
+    Lugar \= calcada,
     vertice(Lugar, semIncendio),
     O > 0,
     O1 is O - 10,
@@ -213,10 +227,10 @@ espalharFogo([Cabeca|Cauda]) :-
     aresta(Comodo, Cabeca),
     vertice(Cabeca, incendio),
     vertice(Comodo, semIncendio),
-    Comodo \= 'calcada',
+    Comodo \= calcada,
     retract(vertice(Comodo, semIncendio)),
     assert(vertice(Comodo, incendio)),
-    retract(lugares([P|Cauda])),
+    retract(lugares([Cabeca|Cauda])),
     assert(lugares(Cauda)),
     format('O comodo ~w esta agora pegando fogo!.~n', [Comodo]).
                         
