@@ -21,14 +21,17 @@ vertice(calcada).
 
 % Definindo as arestas
 
+aresta(calcada, hub).
+aresta(hub, calcada).
+
 aresta(hub, cozinha).
 aresta(cozinha, hub).
 
-aresta(quarto1, quarto2).
-aresta(quarto2, quarto1).
+aresta(hub, quarto1).
+aresta(quarto1, hub).
 
-aresta(calcada, hub).
-aresta(hub, calcada).
+aresta(hub, quarto2).
+aresta(quarto2, hub).
 
 aresta(banheiro, quarto1).
 aresta(quarto1, banheiro).
@@ -102,10 +105,9 @@ pegar(P): format('A pessoa ~w nao esta no local',[P]),!.
 
 %Soltar
            
-soltar(P):-
-            maca([P]),
-            robo(Local,_),
+soltar(P):- robo(Local,_),
             Local \= calcada,
+            maca([P]),
             pessoa(P, maca, O),
             retract(maca([P])),
             assert(maca([])),
@@ -119,10 +121,9 @@ soltar(P):-
             format('voce soltou a pessao ~w no local ~w.~n', [P, Local]),
             registrar_acoes(soltar),!.
             
-soltar(P):-
-            maca([P]),
-            robo(Local,_),
+soltar(P):- robo(Local,_),
             Local == calcada,
+            maca([P]),
             pessoa(P, maca, O),
             retract(maca([P])),
             assert(maca([])),
