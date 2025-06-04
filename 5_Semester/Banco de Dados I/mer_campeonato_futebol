@@ -1,0 +1,59 @@
+digraph MER_Campeonato_Futebol {
+	rankdir=LR size="8,5"
+	Time [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightblue"><B>Time</B></TD></TR>
+        <TR><TD>id_time (PK)</TD></TR><TR><TD>nome</TD></TR><TR><TD>cidade</TD></TR><TR><TD>estado</TD></TR><TR><TD>ano_fundacao</TD></TR>
+    </TABLE>> shape=plaintext]
+	Jogador [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightblue"><B>Jogador</B></TD></TR>
+        <TR><TD>id_jogador (PK)</TD></TR><TR><TD>nome</TD></TR><TR><TD>data_nascimento</TD></TR><TR><TD>nacionalidade</TD></TR><TR><TD>posicao</TD></TR>
+    </TABLE>> shape=plaintext]
+	Estadio [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightblue"><B>Estadio</B></TD></TR>
+        <TR><TD>id_estadio (PK)</TD></TR><TR><TD>nome</TD></TR><TR><TD>capacidade</TD></TR><TR><TD>localizacao</TD></TR>
+    </TABLE>> shape=plaintext]
+	Jogo [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightblue"><B>Jogo</B></TD></TR>
+        <TR><TD>id_jogo (PK)</TD></TR><TR><TD>data</TD></TR><TR><TD>placar_mandante</TD></TR><TR><TD>placar_visitante</TD></TR>
+    </TABLE>> shape=plaintext]
+	Campeonato [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightblue"><B>Campeonato</B></TD></TR>
+        <TR><TD>id_campeonato (PK)</TD></TR><TR><TD>nome</TD></TR><TR><TD>ano</TD></TR><TR><TD>tipo</TD></TR>
+    </TABLE>> shape=plaintext]
+	Participa [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Participa</B></TD></TR>
+        <TR><TD>data_entrada</TD></TR><TR><TD>data_saida</TD></TR>
+    </TABLE>> shape=plaintext]
+	Participa -> Jogador
+	Participa -> Time
+	Ocupa [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Ocupa</B></TD></TR>
+        
+    </TABLE>> shape=plaintext]
+	Ocupa -> Jogo
+	Ocupa -> Estadio
+	Disputa [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Disputa</B></TD></TR>
+        <TR><TD>fase</TD></TR><TR><TD>rodada</TD></TR>
+    </TABLE>> shape=plaintext]
+	Disputa -> Jogo
+	Disputa -> Campeonato
+	Mandante [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Mandante</B></TD></TR>
+        
+    </TABLE>> shape=plaintext]
+	Mandante -> Time
+	Mandante -> Jogo
+	Visitante [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Visitante</B></TD></TR>
+        
+    </TABLE>> shape=plaintext]
+	Visitante -> Time
+	Visitante -> Jogo
+	Classificacao [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD BGCOLOR="lightgray"><B>Classificacao</B></TD></TR>
+        <TR><TD>pontos</TD></TR><TR><TD>vitorias</TD></TR><TR><TD>empates</TD></TR><TR><TD>derrotas</TD></TR><TR><TD>saldo_gols</TD></TR><TR><TD>gols_pro</TD></TR><TR><TD>gols_contra</TD></TR>
+    </TABLE>> shape=plaintext]
+	Classificacao -> Time
+	Classificacao -> Campeonato
+}
