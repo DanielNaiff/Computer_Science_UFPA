@@ -8,7 +8,7 @@ def estaPresente(lista, x):
     if lista == []:
         return False
     
-    if cabeca([lista]) == x:
+    if cabeca(lista) == x:
         return True
     
     return estaPresente(cauda(lista), x)
