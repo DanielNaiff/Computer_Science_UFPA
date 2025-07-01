@@ -1,0 +1,30 @@
+void reverter_recursivo(int lista[], int inicio, int fim) {
+    if (inicio >= fim) {
+        return;
+    }
+
+    // Troca os elementos nas posições inicio e fim
+    int temp = lista[inicio];
+    lista[inicio] = lista[fim];
+    lista[fim] = temp;
+
+    // Chama a si mesma para os próximos elementos
+    reverter_recursivo(lista, inicio + 1, fim - 1);
+}
+
+def reverter_recursivo(lista, inicio, fim):
+    if inicio >= fim:
+        return
+    lista[inicio], lista[fim] = lista[fim], lista[inicio]
+    reverter_recursivo(lista, inicio + 1, fim - 1)
+
+def produto_lista(lista):
+    if len(lista) == 0:
+        return 1  # Identidade da multiplicação
+    return lista[0] * produto_lista(lista[1:])
+
+int produto_lista(int lista[], int tamanho) {
+    if (tamanho == 0)
+        return 1; // Identidade da multiplicação
+    return lista[0] * produto_lista(&lista[1], tamanho - 1);
+}
