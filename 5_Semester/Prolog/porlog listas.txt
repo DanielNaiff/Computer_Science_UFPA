@@ -44,3 +44,20 @@ somar_duas_listas([[H1|T1],[H2|T2]],[R1,R2]):-somar_duas_listas([T1,T2],[R3,R4])
 ultimo([T],T).
 ultimo([_|T], N):- ultimo(T,N).
 %ultimo([3,2,1],N).
+
+contarpares([_],0):-!.
+contarpares([],0):-!.
+contarpares([_,_|T],R):- contarpares(T, R1), R is R1 + 1.
+%contarpares([1,2,3,4,5,6],L).
+
+reversa(L, R) :- reversa_aux(L, [], R).
+
+reversa_aux([], Acc, Acc).
+
+reversa_aux([H|T], Acc, R) :-
+    reversa_aux(T, [H|Acc], R).
+%reversa([1,2,3,4],L).
+
+estapresente([H|_],H).
+estapresente([_|T],N):- estapresente(T,N).
+%estapresente([1,2,3,4],6).
