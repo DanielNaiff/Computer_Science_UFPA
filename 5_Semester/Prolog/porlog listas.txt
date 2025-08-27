@@ -1,0 +1,46 @@
+soma([],0).
+soma([H|T], R):- soma(T, R1), R is R1 + H.
+%soma([1,2,3,4],T).
+
+tamanho([],0).
+tamanho([_|T], N):- tamanho(T,N1), N is N1 + 1.
+%tamanho([1,2,3,4],T).
+
+contem([H|_],H):- !.
+contem([H|T],N):- H \= N, contem(T,N).
+%contem([1,2,3,4],7)
+
+maior([X], X) :- !.
+maior([X | T], Max) :- maior(T, Max1), Max is max(X, Max1).
+
+recuperar_indice([H|_], 0, H):- !.
+recuperar_indice([_|T], I, N):- indice(T,I1,N), I is I1 + 1.
+%recuperar_indice([1,2,3,4], I,3).
+
+recuperar_por_indice([H|_],0,H):-!.
+recuperar_por_indice([_|Xs], I, E):- Ix is I-1,
+    recuperar_por_indice(Xs,Ix,E).
+%recuperar_por_indice([1,2,3,4],3,X).
+
+frequencia([],_,0):-!.
+frequencia([H|T], H, F):- frequencia(T,H,F1), F is F1 + 1.
+frequencia([H|T], N,F):-H \=N, frequencia(T,N,F).
+%frequencia([1,2,2,3,4], 9, F).
+
+append([], L, L).
+append([H|T], L2, [H|R]) :-
+    append(T, L2, R).
+%append([1,2,3], [4,5,6], Resultado).
+
+concatenar_dois_a_dois([], [], []).
+concatenar_dois_a_dois([A|As],[B|Bs],[(A,B)|Rs]):-
+    concatenar_dois_a_dois(As,Bs,Rs).
+%concatenar_dois_a_dois([1,2,3], [4,5,6], Resultado).
+
+somar_duas_listas([[],[]],[0,0]).
+somar_duas_listas([[H1|T1],[H2|T2]],[R1,R2]):-somar_duas_listas([T1,T2],[R3,R4]), R1 is R3 + H1, R2 is R4 + H2.
+%somar_duas_listas([[1,2,3],[1,1,1]],R).
+
+ultimo([T],T).
+ultimo([_|T], N):- ultimo(T,N).
+%ultimo([3,2,1],N).
