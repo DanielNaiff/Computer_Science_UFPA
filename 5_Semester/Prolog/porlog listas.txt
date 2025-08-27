@@ -61,3 +61,44 @@ reversa_aux([H|T], Acc, R) :-
 estapresente([H|_],H).
 estapresente([_|T],N):- estapresente(T,N).
 %estapresente([1,2,3,4],6).
+
+% verifica se um elemento já está presente na lista
+membro(X, [X|_]).
+membro(X, [_|T]) :- membro(X, T).
+
+duplicados(Lista, Duplicados) :- duplicados_aux(Lista, [], [], Duplicados).
+
+% Caso base: lista vazia
+duplicados_aux([], _, Acc, Acc).
+
+% Se o elemento já apareceu e ainda não foi adicionado como duplicado
+duplicados_aux([H|T], Vistos, Acc, R) :-
+    membro(H, Vistos),
+    \+ membro(H, Acc),  % ainda não está nos duplicados
+    duplicados_aux(T, Vistos, [H|Acc], R).
+
+% Se o elemento já é duplicado (já foi adicionado aos duplicados)
+duplicados_aux([H|T], Vistos, Acc, R) :-
+    membro(H, Acc),
+    duplicados_aux(T, Vistos, Acc, R).
+
+% Se o elemento é novo
+duplicados_aux([H|T], Vistos, Acc, R) :-
+    \+ membro(H, Vistos),
+    duplicados_aux(T, [H|Vistos], Acc, R).
+
+remove_duplicados(Lista, Resultado) :- remove_duplicados_aux(Lista, [], Resultado).
+
+% Caso base
+remove_duplicados_aux([], _, []).
+
+% Se o elemento já foi visto, não adiciona
+remove_duplicados_aux([H|T], Vistos, R) :-
+    membro(H, Vistos),
+    remove_duplicados_aux(T, Vistos, R).
+
+% Se é a primeira vez que aparece, adiciona ao resultado e aos vistos
+remove_duplicados_aux([H|T], Vistos, [H|R]) :-
+    \+ membro(H, Vistos),
+    remove_duplicados_aux(T, [H|Vistos], R).
+
