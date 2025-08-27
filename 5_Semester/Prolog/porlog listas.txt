@@ -102,3 +102,14 @@ remove_duplicados_aux([H|T], Vistos, [H|R]) :-
     \+ membro(H, Vistos),
     remove_duplicados_aux(T, [H|Vistos], R).
 
+aresta(a, e, 3).
+aresta(a, c, 4).
+aresta(a, b, 5).
+aresta(c, d, 4).
+aresta(c, e, 2).
+aresta(e, b, 6).
+aresta(e, d, 4).
+aresta(d, b, 3).
+
+caminhar(I,F,P):- aresta(I,F,P).
+caminhar(I,F,P):- aresta(I,A,P1), caminhar(A,F,P2), P is P1 + P2.
